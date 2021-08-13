@@ -159,6 +159,8 @@ class EMShot: FastProjectile
 		Speed 50;
 		DamageFunction 20+random(0,10);
 		RenderStyle "Add";
+		MissileType "EMTrail";
+		MissileHeight 8;
 	}
 
 	override void Tick()
@@ -195,13 +197,35 @@ class EMShot: FastProjectile
 	{
 		// Mostly a placeholder.
 		Spawn:
-			BAL1 AB 3 Bright;
+			PLS2 AB 3 Bright;
 			Loop;
 		Death:
 		XDeath:
 		Crash:
-			BAL1 CDE 5 Bright;
+			PLS2 CDE 5 Bright;
 			TNT1 A -1;
 			Stop;
+	}
+}
+
+class EMTrail : Actor
+{
+	// A visual-only trail for EM shots.
+	default
+	{
+		+NOINTERACTION;
+		RenderStyle "Add";
+		Scale 0.5;
+	}
+
+	states
+	{
+		Spawn:
+			PLS2 AB 3 
+			{
+				A_FadeOut();
+				A_SetScale(scale.x*0.9);
+			}
+			Loop;
 	}
 }
