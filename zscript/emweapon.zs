@@ -78,7 +78,16 @@ class EMWeapon : Weapon
 
 	override void DoEffect()
 	{
-		console.printf("Heat:"..heat);
+		if(chargestate == CS_Overheat || GetAge()%5 == 0)
+		{
+			for(double i = 0.; i < heat; i+=heatspeed*random(2,4))
+			{
+				vector3 newpos = (0,0,36);
+				let it = owner.Spawn("HeatSteam",owner.pos+newpos);
+				it.Vel3DFromAngle(GetDefaultSpeed("HeatSteam"),owner.angle+frandom(-5,5),owner.pitch+frandom(-1,5));
+				it.SetOrigin(it.pos+it.vel, false);
+			}
+		}
 
 		if(heat >= maxheat)
 		{
@@ -87,7 +96,7 @@ class EMWeapon : Weapon
 
 		if(chargestate != CS_Overheat)
 		{
-			if(charge >= maxcharge)
+			if(charge >= maxcharge && chargestate != CS_Ready)
 			{
 				chargestate = CS_Ready;
 				owner.A_StartSound(readysound,3);
@@ -226,6 +235,34 @@ class EMTrail : Actor
 				A_FadeOut();
 				A_SetScale(scale.x*0.9);
 			}
+			Loop;
+	}
+}
+
+class HeatSteam : Actor
+{
+	// Non-interactible actor for visually representing steam.
+
+	default
+	{
+		+NOINTERACTION;
+		RenderStyle "Add";
+		scale 0.5;
+		Speed 5;
+	}
+
+	override void Tick()
+	{
+		vel.z += 0.05;
+		super.Tick();
+	}
+
+	states
+	{
+		Spawn:
+			PUFF CDE 5 { A_SetScale(scale.x*1.1); A_FadeOut(); }
+		FadeLoop:
+			PUFF E 1 { A_SetScale(scale.x*1.1); A_FadeOut(); }
 			Loop;
 	}
 }
