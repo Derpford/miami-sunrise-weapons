@@ -14,6 +14,7 @@ class EMShotgun : EMWeapon replaces Shotgun
 		A_Discharge(30);
 		A_GunFlash();
 		A_Heat();
+		A_StartSound("weapons/shotgf",1);
 		for(int i = 0; i < 5; i++)
 		{
 			A_FireProjectile("EMPellet",angle:frandom(-invoker.heat,invoker.heat));

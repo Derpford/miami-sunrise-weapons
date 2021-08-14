@@ -7,6 +7,7 @@ class EMPistol : EMWeapon replaces Pistol
 		EMWeapon.Charge 35, 3;
 		EMWeapon.ChargeDecay 0.1, 0.2;
 		EMWeapon.Heat 2, .5, 0.01;
+		EMWeapon.ChargeSounds "weapons/plasmaf", "weapons/pisr";
 	}
 
 	action void A_PistolShot()
@@ -15,6 +16,7 @@ class EMPistol : EMWeapon replaces Pistol
 		A_Heat();
 		A_FireProjectile("EMShot",angle:frandom(-invoker.heat,invoker.heat));
 		A_Discharge(10);
+		A_StartSound("weapons/pisf",1);
 	}
 
 	states
