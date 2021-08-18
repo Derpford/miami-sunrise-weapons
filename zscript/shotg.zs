@@ -7,20 +7,21 @@ class EMShotgun : EMWeapon replaces Shotgun
 		Weapon.SlotNumber 2;
 		EMWeapon.Charge 60, 2.5;
 		EMWeapon.ChargeDecay 0.5, 0;
-		EMWeapon.Heat 6.0, 2.5, 0.3;
+		EMWeapon.Heat 6.0, 2.5, 0.1;
+		EMWeapon.ChargeSounds "weapons/shotgc", "weapons/shotgr", "weapons/idlec";
 	}
 
 	action void A_FireShotty()
 	{
 		if(A_CheckHeat())
 		{
-			A_Discharge(30);
+			A_Discharge(20);
 			A_GunFlash();
 			A_Heat();
 			A_StartSound("weapons/shotgf",1);
 			for(int i = 0; i < 5; i++)
 			{
-				A_FireProjectile("EMPellet",angle:frandom(-invoker.heat,invoker.heat));
+				A_FireProjectile("EMPellet",angle:frandom(-invoker.heat,invoker.heat),pitch:frandom(-1,-3));
 			}
 		}
 	}
