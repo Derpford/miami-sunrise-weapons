@@ -50,14 +50,14 @@ class EMWeapon : Weapon
 	{
 		if(invoker.chargestate != CS_Ready && invoker.chargestate != CS_Overheat)
 		{
-			A_StartSound(invoker.chargesound,1);
+			A_StartSound(invoker.chargesound,1,CHANF_NOSTOP);
 			invoker.chargestate = CS_Charging;
 		}
 	}
 
 	action void A_UnCharge()
 	{
-		A_StopSound(1);
+		//A_StopSound(1);
 		if(invoker.chargestate != CS_Ready && invoker.chargestate != CS_Overheat)
 		{
 			invoker.chargestate = CS_Idle;
