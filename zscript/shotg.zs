@@ -35,7 +35,7 @@ class EMShotgun : EMWeapon replaces Shotgun
 			Loop;
 
 		Ready:
-			SHTG A 1 { A_UnCharge(); A_EMReady(); }
+			SHTG A 1 A_EMReady();
 			Loop;
 
 		Fire:
@@ -50,6 +50,7 @@ class EMShotgun : EMWeapon replaces Shotgun
 		AltHold:
 			SHTG D 1 A_Charge();
 			SHTG D 0 A_Refire();
+			SHTG D 0 A_UnCharge();
 			SHTG CB 2;
 			Goto Ready;
 
