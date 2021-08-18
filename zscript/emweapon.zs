@@ -19,6 +19,8 @@ class EMWeapon : Weapon
 
 	double heat; double maxheat; double heatspeed; double heatdecay;
 
+	double heatframes; // set when heating up, delays heat decay
+
 	int chargestate; // charging, charged, overheat?
 
 	property Charge : maxcharge, chargespeed;
@@ -36,6 +38,11 @@ class EMWeapon : Weapon
 		EMWeapon.ChargeDecay 0, 1;
 		EMWeapon.Heat 2.5, 0.5, 0.1;
 		EMWeapon.ChargeSounds "weapons/plasmaf","misc/i_pkup";
+	}
+
+	action bool A_CheckHeat()
+	{
+		return invoker.chargestate != CS_Overheat;
 	}
 
 	action void A_Charge()
@@ -64,6 +71,7 @@ class EMWeapon : Weapon
 	action void A_Heat()
 	{
 		invoker.heat += invoker.heatspeed;
+		invoker.heatframes = invoker.heatspeed;
 	}
 
 	action void A_EMReady(int flags = 0)
@@ -115,7 +123,14 @@ class EMWeapon : Weapon
 			}
 		}
 
-		heat = max(0,heat-heatdecay);
+		if(heatframes <= 0)
+		{
+			heat = max(0,heat-heatdecay);
+		}
+		else
+		{
+			heatframes = max(0,heatframes-heatdecay);
+		}
 
 		switch(chargestate)
 		{
