@@ -152,13 +152,13 @@ class EMWeapon : Weapon
 			case CS_Overheat:
 				break;
 			case CS_Idle:
-				charge -= chargedecay;
+				charge = max(0,charge-chargedecay);
 				break;
 			case CS_Charging:
 				charge += chargespeed;
 				break;
 			case CS_Ready:
-				charge -= readydecay;
+				charge = max(0,charge-readydecay);
 				break;
 		}	
 
