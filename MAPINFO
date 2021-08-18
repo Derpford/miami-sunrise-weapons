@@ -1,4 +1,5 @@
 gameinfo
 {
 	PlayerClasses = "MiamiPlayer"
+	StatusBarClass = "MiamiUI"
 }
