@@ -29,15 +29,16 @@ class EMWeapon : Weapon
 
 	string readysound; // Play this when the gun's ready to fire.
 	string chargesound; // Play this when the gun is charging.
+	string idlechargesound; // Play this while the gun is charged.
 
-	property ChargeSounds: chargesound, readysound;
+	property ChargeSounds: chargesound, readysound, idlechargesound;
 
 	default
 	{
 		EMWeapon.Charge 35, 1;
 		EMWeapon.ChargeDecay 0, 1;
 		EMWeapon.Heat 2.5, 0.5, 0.1;
-		EMWeapon.ChargeSounds "weapons/plasmaf","misc/i_pkup";
+		EMWeapon.ChargeSounds "weapons/plasmaf","misc/i_pkup", "weapons/idlec";
 	}
 
 	action bool A_CheckHeat()
@@ -86,15 +87,29 @@ class EMWeapon : Weapon
 
 	override void DoEffect()
 	{
-		if(chargestate == CS_Overheat || GetAge()%5 == 0)
+		// Some stuff only needs to happen while this weapon is active.
+		if(owner.player.readyweapon == self)
 		{
-			for(double i = 0.; i < heat; i+=heatspeed*random(2,4))
+			if(chargestate == CS_Overheat || GetAge()%5 == 0)
 			{
-				vector3 newpos = (0,0,36);
-				let it = owner.Spawn("HeatSteam",owner.pos+newpos);
-				it.Vel3DFromAngle(GetDefaultSpeed("HeatSteam"),owner.angle+frandom(-5,5),owner.pitch+frandom(-1,5));
-				it.SetOrigin(it.pos+it.vel, false);
+				for(double i = 0.; i < heat; i+=heatspeed*random(2,4))
+				{
+					vector3 newpos = (0,0,36);
+					let it = owner.Spawn("HeatSteam",owner.pos+newpos);
+					it.Vel3DFromAngle(GetDefaultSpeed("HeatSteam"),owner.angle+frandom(-5,5),owner.pitch+frandom(-1,5));
+					it.SetOrigin(it.pos+it.vel, false);
+				}
 			}
+
+			if(chargestate == CS_Ready)
+			{
+				owner.A_StartSound(idlechargesound,5,CHANF_NOSTOP);
+			}
+			else
+			{
+				owner.A_StopSound(5);
+			}
+
 		}
 
 		if(heat >= maxheat)
@@ -146,6 +161,7 @@ class EMWeapon : Weapon
 				charge -= readydecay;
 				break;
 		}	
+
 	}
 
 	states
@@ -185,6 +201,7 @@ class EMShot: FastProjectile
 		RenderStyle "Add";
 		MissileType "EMTrail";
 		MissileHeight 8;
+		Decal "RedPlasmaScorch";
 	}
 
 	override void Tick()
