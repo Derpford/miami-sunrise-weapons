@@ -5,4 +5,6 @@ weapons/pisr "sounds/Sidewindpick.wav"
 
 weapons/shotgf "sounds/Triplefire.wav"
 
+weapons/riflec "sounds/Doubpick.wav"
+weapons/rifler "sounds/Dartpick.wav"
 weapons/riflef "sounds/Turbofire.wav"

@@ -9,6 +9,7 @@ class EMRifle : EMWeapon replaces Chaingun
 		EMWeapon.Charge 30, 2;
 		EMWeapon.ChargeDecay 0.2, 0.1;
 		EMWeapon.Heat 8, 0.7, 0.1;
+		EMWeapon.ChargeSounds "weapons/riflec", "weapons/rifler", "weapons/idlec";
 	}
 
 	action void A_RifleShot()
