@@ -64,8 +64,8 @@ class EMRifleShot : EMShot
 
 	default
 	{
-		EMShot.Spread .05, .2;
-		EMShot.Time 3;
+		EMShot.Spread .05, .1;
+		EMShot.Time 1;
 		Speed 60;
 		DamageFunction 15+random(0,20);
 	}
