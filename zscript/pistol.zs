@@ -16,7 +16,7 @@ class EMPistol : EMWeapon replaces Pistol
 		{
 			A_GunFlash();
 			A_Heat();
-			A_FireProjectile("EMShot",angle:frandom(-invoker.heat,invoker.heat));
+			A_FireProjectile("EMShot",angle:frandom(-invoker.heat,invoker.heat),pitch:-2);
 			A_Discharge(10);
 			A_StartSound("weapons/pisf",1);
 		}
