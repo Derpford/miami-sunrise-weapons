@@ -201,6 +201,8 @@ class EMShot: FastProjectile
 		RenderStyle "Add";
 		MissileType "EMTrail";
 		MissileHeight 8;
+		Radius 4;
+		Height 4;
 		Decal "RedPlasmaScorch";
 	}
 
