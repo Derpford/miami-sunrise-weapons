@@ -6,7 +6,7 @@ class EMPistol : EMWeapon replaces Pistol
 		Weapon.SlotNumber 1;
 		EMWeapon.Charge 35, 3;
 		EMWeapon.ChargeDecay 0.1, 0.2;
-		EMWeapon.Heat 2, .5, 0.05;
+		EMWeapon.Heat 2, .5, 0.02;
 		EMWeapon.ChargeSounds "weapons/plasmaf", "weapons/pisr", "weapons/idlec";
 	}
 
