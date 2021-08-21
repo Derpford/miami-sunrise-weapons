@@ -28,6 +28,9 @@ class EMShotgun : EMWeapon replaces Shotgun
 
 	states
 	{
+		Spawn:
+			SHOT A -1;
+			Stop;
 		Select:
 			SHTG A 1 A_Raise(35);
 			Loop;
