@@ -266,14 +266,17 @@ class EMTrail : Actor
 		Scale 0.5;
 	}
 
+	override void Tick()
+	{
+		super.Tick();
+		A_FadeOut();
+		A_SetScale(scale.x*0.9);
+	}
+
 	states
 	{
 		Spawn:
-			PLS2 AB 3 
-			{
-				A_FadeOut();
-				A_SetScale(scale.x*0.9);
-			}
+			PLS2 AB 3 ;
 			Loop;
 	}
 }

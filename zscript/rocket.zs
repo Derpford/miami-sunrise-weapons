@@ -124,10 +124,7 @@ class MagTrail : EMTrail
 	states
 	{
 		Spawn:
-			PLSS AB 3
-			{
-				A_FadeOut();
-				A_SetScale(scale.x*0.9);
-			}
+			PLSS AB 3 Bright;
+			Loop;
 	}
 }
