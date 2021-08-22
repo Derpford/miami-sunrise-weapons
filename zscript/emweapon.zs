@@ -150,6 +150,7 @@ class EMWeapon : Weapon
 		switch(chargestate)
 		{
 			case CS_Overheat:
+				charge = max(0,charge-chargedecay);
 				break;
 			case CS_Idle:
 				charge = max(0,charge-chargedecay);
