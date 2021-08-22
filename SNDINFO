@@ -10,3 +10,9 @@ weapons/shotgf "sounds/Triplefire.wav"
 weapons/riflec "sounds/Doubpick.wav"
 weapons/rifler "sounds/Dartpick.wav"
 weapons/riflef "sounds/Turbofire.wav"
+
+weapons/rocklf "sounds/Triplefire.wav"
+$pitchset weapons/rocklf 0.7
+weapons/rocklr "sounds/Doubpick.wav"
+$pitchset weapons/rocklr 0.8
+weapons/rocklx "sounds/NoiseBurs.wav"

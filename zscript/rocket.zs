@@ -9,13 +9,16 @@ class MagLauncher : EMWeapon replaces RocketLauncher
 		EMWeapon.Charge 40, 1.;
 		EMWeapon.ChargeDecay 1.,0.1;
 		EMWeapon.Heat 40.0,1.0,0.5;
+		EMWeapon.ChargeSounds "weapons/plasmaf","weapons/rocklr","weapons/idlec";
 	}
 
 	action void A_FireRocket()
 	{
 		let rkt = EMRocket(A_FireProjectile("EMRocket")); // Heat does not affect accuracy.
+		A_StartSound("weapons/rocklf",1);
 		rkt.heatbonus = ceil(invoker.heat);
 		invoker.chargestate = CS_Overheat;
+		invoker.heat += 20.;
 	}
 
 	states
@@ -95,7 +98,7 @@ class EMRocket : EMShot
 		}
 		else
 		{
-			Thrust(.3*sin(GetAge()),angle+90);
+			Thrust(.3,angle+(90*sin(GetAge())));
 		}
 	}
 
@@ -105,8 +108,9 @@ class EMRocket : EMShot
 			PLSS AB 3 Bright;
 			Loop;
 		Death:
-			PLSS C 4 Bright;
-			PLSS D 5 Bright A_Explode(40+clamp(0,heatbonus,40));
+			PLSS C 1 Bright A_StartSound("weapons/rocklx");
+			PLSS C 3 Bright A_Explode(40+heatbonus,2*(40+heatbonus),fulldamagedistance:40+heatbonus);
+			PLSS D 5;
 			PLSS E 6 Bright;
 			TNT1 A -1;
 			Stop;
