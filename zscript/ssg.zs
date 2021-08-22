@@ -7,7 +7,7 @@ class EMShredder : EMWeapon replaces SuperShotgun
 		Weapon.SlotNumber 2;
 		EMWeapon.Charge 35., 4.;	
 		EMWeapon.ChargeDecay 1.,2.;
-		EMWeapon.Heat 35., 35., 0.5;
+		EMWeapon.Heat 35., 35., 1.;
 		EMWeapon.ChargeSounds "weapons/ssgc", "weapons/ssgr", "weapons/idlec";
 	}
 
@@ -19,17 +19,17 @@ class EMShredder : EMWeapon replaces SuperShotgun
 		// Left side.
 		for(int i = 15; i > 0; i--)
 		{
-			A_FireProjectile("EMShredPellet",frandom(-invoker.heat,0),pitch:-2);
+			A_FireProjectile("EMShredPellet",frandom(-invoker.heat/2.,0),pitch:frandom(-1,-4));
 		}
 		// Right side.
 		for(int i = 15; i > 0; i--)
 		{
-			A_FireProjectile("EMShredPellet",frandom(invoker.heat,0),pitch:-2);
+			A_FireProjectile("EMShredPellet",frandom(invoker.heat/2.,0),pitch:frandom(-1,-4));
 		}
 		// Middle.
 		for(int i = 5; i > 0; i--)
 		{
-			A_FireProjectile("EMShredPellet",frandom(invoker.heat/2.,-invoker.heat/2.),pitch:-2);
+			A_FireProjectile("EMShredPellet",frandom(invoker.heat/3.,-invoker.heat/3.),pitch:frandom(-1,-4));
 		}
 		A_Discharge();
 	}
