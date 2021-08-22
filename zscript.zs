@@ -6,5 +6,6 @@ version "4.6"
 //weapons
 #include "zscript/pistol.zs"
 #include "zscript/shotg.zs"
+#include "zscript/ssg.zs"
 #include "zscript/rifle.zs"
 #include "zscript/rocket.zs"

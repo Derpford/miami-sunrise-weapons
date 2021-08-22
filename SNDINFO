@@ -7,6 +7,11 @@ weapons/shotgc "sounds/MMBallpick.wav"
 weapons/shotgr "sounds/Pulspick.wav"
 weapons/shotgf "sounds/Triplefire.wav"
 
+weapons/ssgc "sounds/Pulspick.wav"
+weapons/ssgr "sounds/Pulspick.wav"
+$pitchset weapons/ssgr 0.9
+weapons/ssgf "sounds/TurboAltfire.wav"
+
 weapons/riflec "sounds/Doubpick.wav"
 weapons/rifler "sounds/Dartpick.wav"
 weapons/riflef "sounds/Turbofire.wav"
