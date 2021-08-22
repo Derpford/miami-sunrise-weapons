@@ -278,11 +278,14 @@ class HeatSteam : Actor
 {
 	// Non-interactible actor for visually representing steam.
 
+	bool fade;
+
 	default
 	{
 		+NOINTERACTION;
 		RenderStyle "Add";
 		scale 0.5;
+		Alpha 0.0;
 		Speed 5;
 	}
 
@@ -292,12 +295,30 @@ class HeatSteam : Actor
 		super.Tick();
 	}
 
+	action void A_FadeInOut()
+	{
+		// Fade in, then out.
+		if(invoker.fade)
+		{
+			A_FadeOut();
+		}
+		else
+		{
+			invoker.alpha += 0.1;
+			if(invoker.alpha >= 1.)
+			{
+				invoker.fade = true;
+			}
+		}
+	}
+
+
 	states
 	{
 		Spawn:
-			PUFF CDE 5 { A_SetScale(scale.x*1.1); A_FadeOut(); }
+			PUFF CDE 5 { A_SetScale(scale.x*1.1); A_FadeInOut(); }
 		FadeLoop:
-			PUFF E 1 { A_SetScale(scale.x*1.1); A_FadeOut(); }
+			PUFF E 1 { A_SetScale(scale.x*1.1); A_FadeInOut(); }
 			Loop;
 	}
 }
