@@ -95,9 +95,13 @@ class EMWeapon : Weapon
 				for(double i = 0.; i < heat; i+=heatspeed*random(2,4))
 				{
 					vector3 newpos = (0,0,36);
+					double dangle, dpitch;
+					dangle = owner.angle+frandom(-5,5);
+					dpitch = owner.pitch+frandom(-1,5);
 					let it = owner.Spawn("HeatSteam",owner.pos+newpos);
-					it.Vel3DFromAngle(GetDefaultSpeed("HeatSteam"),owner.angle+frandom(-5,5),owner.pitch+frandom(-1,5));
+					it.Vel3DFromAngle(16,dangle,dpitch);
 					it.SetOrigin(it.pos+it.vel, false);
+					it.Vel3DFromAngle(GetDefaultSpeed("HeatSteam"),dangle,dpitch);
 				}
 			}
 
@@ -285,7 +289,7 @@ class HeatSteam : Actor
 		+NOINTERACTION;
 		RenderStyle "Add";
 		scale 0.5;
-		Alpha 0.0;
+		Alpha 0.3;
 		Speed 5;
 	}
 
