@@ -6,6 +6,8 @@ class EMWeapon : Weapon
 	// Heat affects accuracy and then disables the gun if you reach max heat.
 	// Charge is necessary to fire the gun.
 
+	mixin DampedSpringWep;
+
 	enum ChargeStates
 	{
 		CS_Idle = 0,
@@ -90,6 +92,7 @@ class EMWeapon : Weapon
 		// Some stuff only needs to happen while this weapon is active.
 		if(owner.player.readyweapon == self)
 		{
+			A_OffsetTick();
 			if(chargestate == CS_Overheat || GetAge()%5 == 0)
 			{
 				for(double i = 0.; i < heat; i+=heatspeed*random(2,4))

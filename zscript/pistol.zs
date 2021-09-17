@@ -15,6 +15,7 @@ class EMPistol : EMWeapon replaces Pistol
 		if(A_CheckHeat())
 		{
 			A_GunFlash();
+			A_OffsetVec((0,48,1.1));
 			A_Heat();
 			A_FireProjectile("EMShot",angle:frandom(-invoker.heat,invoker.heat),pitch:-2);
 			A_Discharge(10);
@@ -25,10 +26,11 @@ class EMPistol : EMWeapon replaces Pistol
 	states
 	{
 		Select:
-			PISG A 1 A_Raise(35);
+			PISG A 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			PISG A 1 A_Lower(35);
+			PISG A 1 A_DampedLower(35);
+
 			Loop;
 		Ready:
 			PISG A 1 A_EMReady();

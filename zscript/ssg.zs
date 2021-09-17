@@ -15,6 +15,7 @@ class EMShredder : EMWeapon replaces SuperShotgun
 	{
 		A_Heat();
 		A_GunFlash();
+		A_OffsetKick((0,0,0.3));
 		A_StartSound("weapons/ssgf",1);
 		// Left side.
 		for(int i = 15; i > 0; i--)
@@ -41,12 +42,12 @@ class EMShredder : EMWeapon replaces SuperShotgun
 			Stop;
 
 		Select:
-			SHT2 C 1 A_Raise(35);
+			SHT2 C 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			SHT2 ABC 1 A_Lower(35);
+			SHT2 ABC 1 A_DampedLower(35);
 		DesLoop:
-			SHT2 C 1 A_Lower(35);
+			SHT2 C 1 A_DampedLower(35);
 			Loop;
 
 		Ready:
@@ -83,7 +84,7 @@ class EMShredPellet : EMPellet
 	{
 		DamageFunction 5+random(0,5);
 		EMShot.Time 0;
-		EMShot.Spread .3, .1;
+		EMShot.Spread .4, .1;
 		Speed 30;
 		MissileType "ShredTrail";
 	}

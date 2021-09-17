@@ -10,7 +10,7 @@ class Maelstrom : EMWeapon replaces Chainsaw
 
 	default
 	{
-		Weapon.SlotNumber 2;
+		Weapon.SlotNumber 1;
 		EMWeapon.Charge 12, 1;
 		EMWeapon.ChargeDecay 0, 0;
 		EMWeapon.Heat 35, 45, 1;
@@ -22,6 +22,7 @@ class Maelstrom : EMWeapon replaces Chainsaw
 		if(A_CheckHeat())
 		{
 			//A_GunFlash();
+			A_OffsetVec((0,60,1.1));
 			A_Overlay(-1,"Flash");
 			A_Heat();
 			A_StartSound("weapons/ssgf",1);
@@ -36,16 +37,16 @@ class Maelstrom : EMWeapon replaces Chainsaw
 	states
 	{
 		Select:
-			REVG A 1 A_Raise(35);
+			REVG A 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			REVG A 1 A_Lower(35);
+			REVG A 1 A_DampedLower(35);
 			Loop;
 		Fire:
 			REVG A 1; // Dummy fire state!
 			Goto Ready;
 		Ready:
-			REVG A 1 A_EMReady();
+			REVG A 1 A_EMReady(); 
 			Loop;
 		AltFire:
 			REVG B 1 A_Charge();

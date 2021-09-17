@@ -16,6 +16,7 @@ class EMShotgun : EMWeapon replaces Shotgun
 		if(A_CheckHeat())
 		{
 			A_Discharge(20);
+			A_OffsetKick((0,40,0.2),false);
 			A_GunFlash();
 			A_Heat();
 			A_StartSound("weapons/shotgf",1);
@@ -32,10 +33,10 @@ class EMShotgun : EMWeapon replaces Shotgun
 			SHOT A -1;
 			Stop;
 		Select:
-			SHTG A 1 A_Raise(35);
+			SHTG A 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			SHTG A 1 A_Lower(35);
+			SHTG A 1 A_DampedLower(35);
 			Loop;
 
 		Ready:

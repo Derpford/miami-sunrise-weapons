@@ -16,6 +16,7 @@ class EMRifle : EMWeapon replaces Chaingun
 	{
 		if(A_CheckHeat())
 		{
+			A_OffsetKick((0,10,0.1),true);
 			A_GunFlash();
 			A_Heat();
 			double spread = invoker.heat/2.;
@@ -31,10 +32,10 @@ class EMRifle : EMWeapon replaces Chaingun
 			PLAS A -1;
 			Stop;
 		Select:
-			PLSG B 1 A_Raise(35);
+			PLSG B 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			PLSG B 1 A_Lower(35);
+			PLSG B 1 A_DampedLower(35);
 			Loop;
 		Ready:
 			PLSG A 1 A_EMReady();
