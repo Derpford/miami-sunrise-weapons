@@ -23,7 +23,7 @@ mixin class DampedSpringWep
 		// Takes current position and current velocity and gives
 		// a new velocity.
 		double dt = 1./35.;
-		double stiffness = 1.9;
+		double stiffness = 5.0;
 		double damping = 0.1;
 		double g = xgoal;
 		double q = vgoal;
