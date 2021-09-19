@@ -22,7 +22,7 @@ class Maelstrom : EMWeapon replaces Chainsaw
 		if(A_CheckHeat())
 		{
 			//A_GunFlash();
-			A_OffsetVec((0,60,1.1));
+			A_OffsetKick((0,30,0.8));
 			A_Overlay(-1,"Flash");
 			A_Heat();
 			A_StartSound("weapons/ssgf",1);

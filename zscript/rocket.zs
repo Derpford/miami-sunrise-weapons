@@ -14,7 +14,7 @@ class MagLauncher : EMWeapon replaces RocketLauncher
 
 	action void A_FireRocket()
 	{
-		A_OffsetVec((0,52,1.2));
+		A_OffsetKick((0,10,0.9));
 		let rkt = EMRocket(A_FireProjectile("EMRocket")); // Heat does not affect accuracy.
 		A_StartSound("weapons/rocklf",1);
 		rkt.heatbonus = ceil(invoker.heat);

@@ -72,7 +72,8 @@ class EMShredder : EMWeapon replaces SuperShotgun
 			Goto Ready;
 
 		Flash:
-			SHT2 IJ 3;
+			SHT2 I 1;
+			SHT2 J 2;
 			Stop;
 	}
 }

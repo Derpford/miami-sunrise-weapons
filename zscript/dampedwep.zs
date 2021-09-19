@@ -92,7 +92,7 @@ mixin class DampedSpringWep
 		v = dt * stiffness * (g - x) + dt * damping * (q - v);
 		return v;*/
 
-		[x,v] = impl_damp(x,v,xgoal,vgoal,500.,20,1./35.);
+		[x,v] = impl_damp(x,v,xgoal,vgoal,500.,30,1./35.);
 		return v;
 	}
 
@@ -121,6 +121,7 @@ mixin class DampedSpringWep
 	action void A_OffsetTick()
 	{
 		let psp = invoker.owner.player.GetPSprite(PSP_WEAPON);
+		let psp2 = invoker.owner.player.GetPSprite(PSP_FLASH);
 
 		let plr = invoker.owner.player;
 		let plrvel = (plr.cmd.sidemove,plr.cmd.forwardmove);
@@ -132,8 +133,6 @@ mixin class DampedSpringWep
 
 		double plrz = invoker.owner.vel.z;
 
-		psp.pivot.x = 0.5;
-		psp.pivot.y = 1.0;
 
 		/*
 		double fac = 10.;
@@ -170,10 +169,19 @@ mixin class DampedSpringWep
 		//A_OverlayScale(1,invoker.offpos.z);
 		if(invoker.owner.player.readyweapon == invoker)
 		{
+			psp.pivot.x = 0.5;
+			psp.pivot.y = 1.0;
 			psp.x = invoker.offpos.x;
 			psp.y = invoker.offpos.y;
 			psp.scale.x = invoker.offpos.z;
 			psp.scale.y = invoker.offpos.z;
+
+			psp2.pivot.x = 0.5;
+			psp2.pivot.y = 1.0;
+			psp2.x = invoker.offpos.x;
+			psp2.x = invoker.offpos.x;
+			psp2.scale.x = invoker.offpos.z;
+			psp2.scale.y = invoker.offpos.z;
 		}
 	}
 
