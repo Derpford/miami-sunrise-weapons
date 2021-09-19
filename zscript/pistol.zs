@@ -15,7 +15,7 @@ class EMPistol : EMWeapon replaces Pistol
 		if(A_CheckHeat())
 		{
 			A_GunFlash();
-			A_OffsetVec((0,48,1.1));
+			A_OffsetKick((0,16,0.1));
 			A_Heat();
 			A_FireProjectile("EMShot",angle:frandom(-invoker.heat,invoker.heat),pitch:-2);
 			A_Discharge(10);

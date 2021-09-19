@@ -4,5 +4,6 @@ class MiamiPlayer : DoomPlayer
 	{
 		Player.StartItem "EMPistol";
 		Player.MaxHealth 100;
+		//Player.JumpZ 12;
 	}
 }
