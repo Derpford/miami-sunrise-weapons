@@ -113,7 +113,9 @@ class EMWeapon : Weapon
 
 			if(chargestate == CS_Ready)
 			{
+				double vol = charge/maxcharge;
 				owner.A_StartSound(idlechargesound,5,CHANF_NOSTOP);
+				owner.A_SoundVolume(5,vol);
 			}
 			else
 			{
