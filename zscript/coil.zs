@@ -78,9 +78,9 @@ class EMCoilBolt : EMShot
 
 	default
 	{
-		EMShot.Spread .1, .05;
-		EMShot.Time 3;
-		Speed 60;
+		EMShot.Spread .03, .1;
+		EMShot.Time 10;
+		Speed 80;
 		DamageFunction (100+random(0,20))*chargebonus;
 	}
 }
