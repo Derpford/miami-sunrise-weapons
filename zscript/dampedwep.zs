@@ -149,7 +149,7 @@ mixin class DampedSpringWep
 
 
 		invoker.offvel.x = damp(invoker.offpos.x,
-			invoker.offvel.x - (plrvel.x*5) + plryaw,
+			invoker.offvel.x - (plrvel.x*5) + plryaw/2.,
 			invoker.offgoal.x,
 			0);
 		invoker.offvel.y = damp(invoker.offpos.y,
