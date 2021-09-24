@@ -6,7 +6,7 @@ class EMShotgun : EMWeapon replaces Shotgun
 	{
 		Weapon.SlotNumber 2;
 		EMWeapon.Charge 60, 2.5;
-		EMWeapon.ChargeDecay 0.5, 0;
+		EMWeapon.ChargeDecay 1.5, 0;
 		EMWeapon.Heat 6.0, 2.5, 0.1;
 		EMWeapon.ChargeSounds "weapons/shotgc", "weapons/shotgr", "weapons/idlec";
 	}
