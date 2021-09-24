@@ -6,7 +6,7 @@ class EMPistol : EMWeapon replaces Pistol
 		Weapon.SlotNumber 1;
 		EMWeapon.Charge 35, 3;
 		EMWeapon.ChargeDecay 0.1, 0.2;
-		EMWeapon.ChargeSustain(10);
+		EMWeapon.ChargeSustain 10;
 		EMWeapon.Heat 2, .5, 0.02;
 		EMWeapon.ChargeSounds "weapons/plasmaf", "weapons/pisr", "weapons/idlec";
 	}
@@ -27,27 +27,27 @@ class EMPistol : EMWeapon replaces Pistol
 	states
 	{
 		Select:
-			PISG A 1 A_DampedRaise(35);
+			DPIG A 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			PISG A 1 A_DampedLower(35);
+			DPIG A 1 A_DampedLower(35);
 
 			Loop;
 		Ready:
-			PISG A 1 A_EMReady();
+			DPIG A 1 A_EMReady();
 			Loop;
 		Fire:
-			PISG B 2 A_PistolShot();
-			PISG BCA 3;
+			DPIF A 2 A_PistolShot();
+			DPIG BCA 3;
 			Goto Ready;
 		AltFire:
-			PISG B 1 A_Charge();
-			PISG B 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
-			PISG B 0 A_UnCharge();
+			DPIG B 1 A_Charge();
+			DPIG B 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
+			DPIG B 0 A_UnCharge();
 			Goto Ready;
-		Flash:
-			PISF A 2;
-			Stop;
+		//Flash:
+		//	PISF A 2;
+		//	Stop;
 	}
 
 }
