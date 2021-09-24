@@ -23,3 +23,10 @@ $pitchset weapons/rocklr 0.8
 weapons/rocklx "sounds/NoiseBurs.wav"
 
 weapons/coilf "sounds/Hyperstfire.wav"
+
+weapons/gatlf "sounds/Ballzofire.wav"
+weapons/gatlc "sounds/MSpick.wav"
+$pitchset weapons/gatlc 0.6
+weapons/gatlr "sounds/Fork.wav"
+weapons/gatls "sounds/Dartpick.wav"
+$pitchset weapons/gatls 1.1
