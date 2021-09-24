@@ -25,50 +25,50 @@ class MagLauncher : EMWeapon replaces RocketLauncher
 	states
 	{
 		Spawn:
-			MGUN A -1;
+			DEGL A -1;
 			Stop;
 
 		Select:
-			CHGG A 1 A_DampedRaise(35);
+			DGLG A 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			CHGG A 1 A_DampedLower(35);
+			DGLG A 1 A_DampedLower(35);
 			Loop;
 
 		Ready:
-			CHGG A 1 A_EMReady();
+			DGLG A 1 A_EMReady();
 			Loop;
 
 		AltFire:
-			CHGG AB 1
+			DGLF AB 1
 			{
 				A_Charge();
 				if(invoker.chargestate == CS_Ready)
 				{
 					A_Heat();
 				}
-				int newtics =(10+invoker.maxcharge - invoker.charge)/10 ;
-				console.printf(""..newtics);
+				int newtics = (10+invoker.maxcharge - invoker.charge)/10 ;
+				//console.printf(""..newtics);
 				A_SetTics(newtics);
 				if(invoker.charge > invoker.maxcharge/2)
 				{
 					A_GunFlash();
 				}
 			}
-			CHGG A 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
-			CHGG A 0 A_UnCharge();
+			DGLG A 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
+			DGLG A 0 A_UnCharge();
 			Goto Ready;
 
 		Fire:
-			CHGG A 2 A_FireRocket();
-			CHGG B 3;
-			CHGG AB 4;
-			CHGG AB 5;
+			DGLF A 2 A_FireRocket();
+			DGLF BCDE 3;
+			DGLG ABC 4;
+			DGLG CB 5;
 			Goto Ready;
 
-		Flash:
-			CHGF AB 1 Bright;
-			Stop;
+		//Flash:
+		//	CHGF AB 1 Bright;
+		//	Stop;
 
 	}
 }

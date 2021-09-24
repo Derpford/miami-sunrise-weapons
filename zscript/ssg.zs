@@ -38,43 +38,44 @@ class EMShredder : EMWeapon replaces SuperShotgun
 	states
 	{
 		Spawn:
-			SGN2 A -1;
+			DESS A -1;
 			Stop;
 
 		Select:
-			SHT2 C 1 A_DampedRaise(35);
+			DSSG C 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			SHT2 ABC 1 A_DampedLower(35);
+			DSSG ABC 1 A_DampedLower(35);
 		DesLoop:
-			SHT2 C 1 A_DampedLower(35);
+			DSSG C 1 A_DampedLower(35);
 			Loop;
 
 		Ready:
-			SHT2 CBA 4;
+			DSSG CBA 4;
 		RealReady:
-			SHT2 A 1 A_EMReady();
+			DSSG A 1 A_EMReady();
 			Loop;
 
 		AltFire:
-			SHT2 A 1 A_Charge();
-			SHT2 A 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
-			SHT2 A 0 A_UnCharge();
+			DSSG A 1 A_Charge();
+			DSSG A 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
+			DSSG A 0 A_UnCharge();
 			Goto RealReady;
 
 		Fire:
-			SHT2 A 1 A_FireShredder();
-			SHT2 A 2;
-			SHT2 B 3;
-			SHT2 C 7;
-			SHT2 D 12;
-			SHT2 CCC 4 A_StartSound("misc/i_pkup");
+			DSSF A 1 A_FireShredder();
+			DSSF BC 1;
+			DSSG B 3;
+			DSSG C 7;
+			DSSG D 5;
+			DSSG E 7;
+			DSSG EDC 4 A_StartSound("misc/i_pkup");
 			Goto Ready;
 
-		Flash:
-			SHT2 I 1;
-			SHT2 J 2;
-			Stop;
+		//Flash:
+		//	DSSG I 1;
+		//	DSSG J 2;
+		//	Stop;
 	}
 }
 

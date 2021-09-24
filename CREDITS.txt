@@ -1,0 +1,5 @@
+All sprites in folders prefixed with "eri" are from Eriguns.
+
+Coilgun sprite ("LFC") from Breadbagfly's Scrapyard 2: https://forum.zdoom.org/viewtopic.php?f=37&t=52677
+
+Revolver credited to DoomNukem.

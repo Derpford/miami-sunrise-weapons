@@ -29,33 +29,39 @@ class EMRifle : EMWeapon replaces Chaingun
 	states
 	{
 		Spawn:
-			PLAS A -1;
+			DEPG A -1;
 			Stop;
 		Select:
-			PLSG B 1 A_DampedRaise(35);
+			DPGG D 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			PLSG B 1 A_DampedLower(35);
+			DPGG ABCD 5 A_DampedLower(35);
+		DesLoop:
+			DPGG D 1 A_DampedLower(35);
 			Loop;
 		Ready:
-			PLSG A 1 A_EMReady();
+			DPGG CBA 4;
+		ReadyLoop:
+			DPGG A 1 A_EMReady();
 			Loop;
 		Fire:
-			PLSG A 3 A_RifleShot();
-			PLSG B 2;
-			PLSG B 0 A_Refire();
-			PLSG B 8;
+			DPGF A 1 A_RifleShot();
+			DPGF BC 1;
+			DPGG B 2;
+			DPGG B 0 A_Refire();
+			DPGG B 1 A_OffsetKick((5,15,0.1));
+			DPGG C 5;
 			Goto Ready;
 		AltFire:
-			PLSG B 1 A_Charge();
-			PLSG B 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
-			PLSG B 2 A_UnCharge;
-			PLSG A 1;
-			Goto Ready;
-		Flash:
-			PLSF A 1 Bright;
-			PLSF B 2 Bright;
-			Stop;
+			DPGG C 1 A_Charge();
+			DPGG B 0 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
+			DPGG B 2 A_UnCharge;
+			DPGG A 1;
+			Goto ReadyLoop;
+		//Flash:
+		//	PLSF A 1 Bright;
+		//	PLSF B 2 Bright;
+		//	Stop;
 	}
 }
 

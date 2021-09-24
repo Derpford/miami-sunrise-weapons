@@ -30,39 +30,43 @@ class EMShotgun : EMWeapon replaces Shotgun
 	states
 	{
 		Spawn:
-			SHOT A -1;
+			DESG A -1;
 			Stop;
 		Select:
-			SHTG A 1 A_DampedRaise(35);
+			DSGG A 1 A_DampedRaise(35);
 			Loop;
 		Deselect:
-			SHTG A 1 A_DampedLower(35);
+			DSGG A 1 A_DampedLower(35);
 			Loop;
 
 		Ready:
-			SHTG A 1 A_EMReady();
+			DSGG A 1 A_EMReady();
 			Loop;
 
 		Fire:
-			SHTG A 3 A_FireShotty();
-			SHTG B 4; 
-			SHTG C 4 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
-			SHTG D 5;
-			SHTG CB 4;
+			DSGF A 1 A_FireShotty();
+			DSGF BC 1;
+			DSGG A 2;
+			DSGG B 2; 
+			DSGG C 2 A_EMReady(WRF_NOSWITCH|WRF_NOBOB);
+			DSGG D 5;
+			DSGG E 7;
+			DSGG D 4;
+			DSGG CB 3;
 			Goto Ready;
 		AltFire:
-			SHTG BC 3;
+			DSGG BC 3;
 		AltHold:
-			SHTG D 1 A_Charge();
-			SHTG D 0 A_Refire();
-			SHTG D 0 A_UnCharge();
-			SHTG CB 2;
+			DSGG D 1 A_Charge();
+			DSGG D 0 A_Refire();
+			DSGG D 0 A_UnCharge();
+			DSGG CB 2;
 			Goto Ready;
 
-		Flash:
-			SHTF A 2 Bright;
-			SHTF B 1 Bright;
-			Stop;
+		//Flash:
+		//	SHTF A 2 Bright;
+		//	SHTF B 1 Bright;
+		//	Stop;
 	}
 }
 
