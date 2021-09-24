@@ -18,6 +18,7 @@ class EMWeapon : Weapon
 
 	double charge; double maxcharge; double chargespeed;
 	double chargedecay; double readydecay;
+	double chargesustain;
 
 	double heat; double maxheat; double heatspeed; double heatdecay;
 
@@ -27,6 +28,7 @@ class EMWeapon : Weapon
 
 	property Charge : maxcharge, chargespeed;
 	property ChargeDecay : chargedecay, readydecay;
+	property ChargeSustain : chargesustain;
 	property Heat : maxheat, heatspeed, heatdecay;
 
 	string readysound; // Play this when the gun's ready to fire.
@@ -39,6 +41,7 @@ class EMWeapon : Weapon
 	{
 		EMWeapon.Charge 35, 1;
 		EMWeapon.ChargeDecay 0, 1;
+		EMWeapon.ChargeSustain 0;
 		EMWeapon.Heat 2.5, 0.5, 0.1;
 		EMWeapon.ChargeSounds "weapons/plasmaf","misc/i_pkup", "weapons/idlec";
 	}
@@ -166,7 +169,7 @@ class EMWeapon : Weapon
 				charge += chargespeed;
 				break;
 			case CS_Ready:
-				charge = max(0,charge-readydecay);
+				charge = max(chargesustain,charge-readydecay);
 				break;
 		}	
 
