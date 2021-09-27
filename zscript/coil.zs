@@ -1,4 +1,4 @@
-class Coilgun : EMWeapon replaces PlasmaGun
+class Coilgun : EMWeapon replaces PlasmaRifle
 {
 	// A railgun which provides long-distance firepower.
 	// Can be held in a ready state, but only at about 50% effectiveness.

@@ -1,4 +1,4 @@
-class MiamiSunset : EMWeapon replaces BFG
+class MiamiSunset : EMWeapon replaces BFG9000
 {
 	// Your days are numbered. This enormous weapon is the ultimate in rapid fire death.
 
