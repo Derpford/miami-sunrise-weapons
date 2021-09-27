@@ -5,10 +5,13 @@ class MiamiUI : BaseStatusBar
 	double hpval, armval, heatval, chargeval; // fill percentage
 	double armoramount, armormax; // armor details
 
+	HUDFont mConFont; // Console font.
+
 	override void Init()
 	{
 		// Set the size value here.
 		size = 128.0;
+		mConFont = HUDFont.Create("CONFONT");
 	}
 
 	void DrawHudBar(String img, Vector2 pos, double size, double xclip, double yclip, int flags)
@@ -36,6 +39,7 @@ class MiamiUI : BaseStatusBar
 		hpval = double(plr.health)/double(plr.maxhealth);
 		[armoramount, armormax] = GetAmount("BasicArmor");
 		let wpn = EMWeapon(plr.player.ReadyWeapon);
+		let scr = plr.score;
 
 		if(armoramount && armormax) { armval = double(armoramount)/double(100); }
 
@@ -48,6 +52,7 @@ class MiamiUI : BaseStatusBar
 		// Set up some common position flags.
 		int leftbarf = DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM;
 		int rightbarf = DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM;
+		int centertxtf = DI_SCREEN_CENTER_BOTTOM | DI_ITEM_CENTER_BOTTOM | DI_TEXT_ALIGN_CENTER;
 
 		// And now the fun part.
 		beginHUD();
@@ -61,6 +66,9 @@ class MiamiUI : BaseStatusBar
 		DrawImage("HUDBACK2", (0,0), rightbarf);
 		DrawHudBar("HUDBAR4", (0,0), size, 1.0, chargeval, rightbarf);
 		DrawHudBar("HUDBAR5", (0,0), size, 1.0, heatval, rightbarf);
+
+		// Score.
+		DrawString(mConFont, FormatNumber(scr,10,format:FNF_FILLZEROS), (0,-32), centertxtf, Font.CR_WHITE);
 
 	}
 }
