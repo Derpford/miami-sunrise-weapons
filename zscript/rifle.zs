@@ -6,6 +6,7 @@ class EMRifle : EMWeapon replaces Chaingun
 	default
 	{
 		Weapon.SlotNumber 4;
+		Inventory.PickupMessage "Grabbed an EM Rifle!";
 		EMWeapon.Charge 30, 2;
 		EMWeapon.ChargeDecay 0.2, 0.1;
 		EMWeapon.Heat 8, 0.7, 0.1;

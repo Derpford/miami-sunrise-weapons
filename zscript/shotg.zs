@@ -5,6 +5,7 @@ class EMShotgun : EMWeapon replaces Shotgun
 	default
 	{
 		Weapon.SlotNumber 3;
+		Weapon.PickupMessage "Got the Riotgun!"
 		EMWeapon.Charge 60, 2.5;
 		EMWeapon.ChargeDecay 1.5, 0;
 		EMWeapon.Heat 6.0, 2.5, 0.1;

@@ -5,6 +5,7 @@ class MiamiSunset : EMWeapon replaces BFG9000
 	default
 	{
 		Weapon.SlotNumber 5;
+		Inventory.PickupMessage "The Miami Sunset. Their days are numbered.";
 		EMWeapon.Charge 100, 2;
 		EMWeapon.ChargeDecay 0.3,0.05;
 		EMWeapon.Heat 50, 0.5, 0.1;

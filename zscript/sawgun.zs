@@ -11,6 +11,7 @@ class Maelstrom : EMWeapon replaces Chainsaw
 	default
 	{
 		Weapon.SlotNumber 2;
+		Inventory.PickupMessage "Grabbed the Maelstrom revolver!";
 		EMWeapon.Charge 12, 1;
 		EMWeapon.ChargeDecay 0, 0;
 		EMWeapon.Heat 35, 45, 1;
@@ -36,6 +37,9 @@ class Maelstrom : EMWeapon replaces Chainsaw
 
 	states
 	{
+		Spawn:
+			REVI A -1;
+			Stop;
 		Select:
 			REVG A 1 A_DampedRaise(35);
 			Loop;

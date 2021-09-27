@@ -4,6 +4,7 @@ class EMPistol : EMWeapon replaces Pistol
 	default
 	{
 		Weapon.SlotNumber 2;
+		Inventory.PickupMessage "Grabbed a pistol!";
 		EMWeapon.Charge 35, 3;
 		EMWeapon.ChargeDecay 0.1, 0.2;
 		EMWeapon.ChargeSustain 10;
@@ -26,6 +27,9 @@ class EMPistol : EMWeapon replaces Pistol
 
 	states
 	{
+		Spawn:
+			DEPI A -1;
+			Stop;
 		Select:
 			DPIG A 1 A_DampedRaise(35);
 			Loop;
