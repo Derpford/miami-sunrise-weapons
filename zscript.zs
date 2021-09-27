@@ -5,6 +5,7 @@ version "4.6"
 #include "zscript/hud.zs"
 #include "zscript/dampedwep.zs"
 //weapons
+#include "zscript/fist.zs"
 #include "zscript/sawgun.zs"
 #include "zscript/pistol.zs"
 #include "zscript/shotg.zs"
