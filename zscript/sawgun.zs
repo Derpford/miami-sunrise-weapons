@@ -10,7 +10,7 @@ class Maelstrom : EMWeapon replaces Chainsaw
 
 	default
 	{
-		Weapon.SlotNumber 1;
+		Weapon.SlotNumber 2;
 		EMWeapon.Charge 12, 1;
 		EMWeapon.ChargeDecay 0, 0;
 		EMWeapon.Heat 35, 45, 1;

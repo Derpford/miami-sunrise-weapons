@@ -5,7 +5,7 @@ class MagLauncher : EMWeapon replaces RocketLauncher
 
 	default
 	{
-		Weapon.SlotNumber 4;
+		Weapon.SlotNumber 5;
 		EMWeapon.Charge 40, 1.;
 		EMWeapon.ChargeDecay 1.,0.1;
 		EMWeapon.Heat 40.0,1.0,0.5;

@@ -3,7 +3,7 @@ class EMPistol : EMWeapon replaces Pistol
 	// Starting weapon, and a reliable one.
 	default
 	{
-		Weapon.SlotNumber 1;
+		Weapon.SlotNumber 2;
 		EMWeapon.Charge 35, 3;
 		EMWeapon.ChargeDecay 0.1, 0.2;
 		EMWeapon.ChargeSustain 10;

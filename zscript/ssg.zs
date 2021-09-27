@@ -4,7 +4,7 @@ class EMShredder : EMWeapon replaces SuperShotgun
 
 	default
 	{
-		Weapon.SlotNumber 2;
+		Weapon.SlotNumber 3;
 		EMWeapon.Charge 35., 4.;	
 		EMWeapon.ChargeDecay 1.,2.;
 		EMWeapon.Heat 35., 35., 1.;

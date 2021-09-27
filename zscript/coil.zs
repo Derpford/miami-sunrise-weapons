@@ -5,6 +5,7 @@ class Coilgun : EMWeapon replaces PlasmaRifle
 
 	default
 	{
+		Weapon.SlotNumber 4;
 		EMWeapon.Charge 60, 1.5;
 		EMWeapon.ChargeDecay 1., 1.;
 		EMWeapon.ChargeSustain 30;
