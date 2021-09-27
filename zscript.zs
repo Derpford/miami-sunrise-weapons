@@ -13,3 +13,5 @@ version "4.6"
 #include "zscript/rocket.zs"
 #include "zscript/coil.zs"
 #include "zscript/gatling.zs"
+//items
+#include "zscript/cash.zs"
