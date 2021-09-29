@@ -51,7 +51,8 @@ class MiamiPlayer : DoomPlayer
 			}
 			shield = max(0, shield-sdmg);
 			shieldTimer = 105;
-			A_TakeInventory("ShieldPoints",1);
+			int shieldLoss = ceil(CountInv("ShieldPoints")*0.05);
+			A_TakeInventory("ShieldPoints",shieldLoss);
 			return 0;
 		}
 		else
