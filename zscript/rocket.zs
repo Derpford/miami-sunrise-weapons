@@ -9,7 +9,7 @@ class MagLauncher : EMWeapon replaces RocketLauncher
 		Inventory.PickupMessage "Snagged an Electro-Mag Launcher! Let's fry some creeps!";
 		EMWeapon.Charge 40, 1.;
 		EMWeapon.ChargeDecay 1.,0.1;
-		EMWeapon.Heat 40.0,1.0,0.5;
+		EMWeapon.Heat 40.0,.5,0.5;
 		EMWeapon.ChargeSounds "weapons/plasmaf","weapons/rocklr","weapons/idlec";
 	}
 
@@ -110,9 +110,9 @@ class EMRocket : EMShot
 			PLSS AB 3 Bright;
 			Loop;
 		Death:
-			PLSS C 1 Bright A_StartSound("weapons/rocklx");
+			PLSS C 1 Bright { A_StartSound("weapons/rocklx"); invoker.vel = (0,0,0); }
 			PLSS C 3 Bright A_Explode(80+heatbonus,2*(80+heatbonus),fulldamagedistance:80+heatbonus);
-			PLSS D 5;
+			PLSS D 5 Bright;
 			PLSS E 6 Bright;
 			TNT1 A -1;
 			Stop;
