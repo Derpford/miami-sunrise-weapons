@@ -284,7 +284,7 @@ class EMTrail : Actor
 	states
 	{
 		Spawn:
-			PLS2 AB 3 ;
+			PLS2 AB 3 Bright;
 			Loop;
 	}
 }
