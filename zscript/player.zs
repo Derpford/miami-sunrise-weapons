@@ -19,7 +19,7 @@ class MiamiPlayer : DoomPlayer
 		{
 			if(shield < CountInv("ShieldPoints"))
 			{
-				double newshield = CountInv("ShieldPoints")/70.;
+				double newshield = CountInv("ShieldPoints")/35.;
 				if(shield+newshield >= CountInv("ShieldPoints"))
 				{
 					A_StartSound("misc/smax",4);
@@ -49,7 +49,7 @@ class MiamiPlayer : DoomPlayer
 				A_StartSound("misc/sbreak",4);
 			}
 			shield = max(0, shield-sdmg);
-			shieldTimer = 105;
+			shieldTimer = 70;
 			int shieldLoss = ceil(CountInv("ShieldPoints")*0.05);
 			A_TakeInventory("ShieldPoints",shieldLoss);
 			return 0;
