@@ -26,7 +26,7 @@ class HoldPoint : Actor
 	override void Tick()
 	{
 		string col = "HoldSparkle";
-		let it = ThinkerIterator.Create("MiamiPlayer");
+		let it = ThinkerIterator.Create("PlayerPawn");
 		int count = 0;
 		Actor plr;
 
