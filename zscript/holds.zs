@@ -54,7 +54,7 @@ class HoldPoint : Actor
 		{
 			double ang = (i+GetAge())%360;
 			A_SpawnItemEX(col,ceil(CapRadius),zofs:16,angle:ang);
-			if(count > 0)
+			if(cap > 0)
 			{
 				A_SpawnItemEX(col, ceil((Cap/CapMax) * CapRadius),zofs:16,angle:ang);
 			}
