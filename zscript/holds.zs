@@ -80,6 +80,7 @@ class HoldSparkle : Actor
 	default
 	{
 		+NOINTERACTION;
+		+BRIGHT;
 		RenderStyle "AddStencil";
 		StencilColor "FF2193";
 	}
@@ -97,6 +98,7 @@ class CapSparkle : Actor
 	default
 	{
 		+NOINTERACTION;
+		+BRIGHT;
 		RenderStyle "AddStencil";
 		StencilColor "08E2FF";
 	}
