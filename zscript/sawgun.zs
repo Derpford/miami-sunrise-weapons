@@ -91,7 +91,7 @@ class SuperBolt : EMShot
 		EMShot.Spread 0.20, 0.2;
 		EMShot.Time 1;
 		Speed 60;
-		DamageFunction 6;
+		DamageFunction 8;
 		+RIPPER;
 	}
 }
