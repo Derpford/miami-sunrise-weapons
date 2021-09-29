@@ -80,13 +80,14 @@ class HoldSparkle : Actor
 	default
 	{
 		+NOINTERACTION;
-		RenderStyle "Add";
+		RenderStyle "AddStencil";
+		StencilColor "FF2193";
 	}
 
 	states
 	{
 		Spawn:
-			PLS2 A 2;
+			PUFF A 2;
 			Stop;
 	}
 }
@@ -96,13 +97,14 @@ class CapSparkle : Actor
 	default
 	{
 		+NOINTERACTION;
-		RenderStyle "Add";
+		RenderStyle "AddStencil";
+		StencilColor "08E2FF";
 	}
 
 	states
 	{
 		Spawn:
-			PLSS A 2;
+			PUFF A 2;
 			Stop;
 	}
 }
