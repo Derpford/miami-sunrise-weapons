@@ -111,7 +111,7 @@ class EMRocket : EMShot
 			Loop;
 		Death:
 			PLSS C 1 Bright A_StartSound("weapons/rocklx");
-			PLSS C 3 Bright A_Explode(40+heatbonus,2*(40+heatbonus),fulldamagedistance:40+heatbonus);
+			PLSS C 3 Bright A_Explode(80+heatbonus,2*(80+heatbonus),fulldamagedistance:80+heatbonus);
 			PLSS D 5;
 			PLSS E 6 Bright;
 			TNT1 A -1;
