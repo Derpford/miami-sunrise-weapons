@@ -52,8 +52,12 @@ class HoldPoint : Actor
 
 		for(int i = 0; i < 360; i+=10)
 		{
-			A_SpawnItemEX(col,ceil(CapRadius),zofs:16,angle:(i+GetAge())%360);
-			//console.printf("Tick!");
+			double ang = (i+GetAge())%360;
+			A_SpawnItemEX(col,ceil(CapRadius),zofs:16,angle:ang);
+			if(count > 0)
+			{
+				A_SpawnItemEX(col, ceil((Cap/CapMax) * CapRadius),zofs:16,angle:ang);
+			}
 		}
 
 		if(Cap >= CapMax)
