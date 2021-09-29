@@ -64,7 +64,7 @@ class HoldPoint : Actor
 		{
 			for(int i = 0; i < CapDrops; i++)
 			{
-				A_SpawnItemEX(CapReward,xvel:frandom(-2,2),yvel:frandom(-2,2),zvel:frandom(0,2));
+				A_SpawnItemEX(CapReward,xvel:frandom(-2,2),yvel:frandom(-2,2),zvel:frandom(4,8));
 			}
 			Die(self,self,0,"MDK");
 		}
