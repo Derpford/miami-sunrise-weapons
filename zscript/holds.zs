@@ -174,3 +174,22 @@ class GemCase : HoldPoint replaces CellPack
 			Stop;
 	}
 }
+
+class MedPack : HoldPoint replaces Medikit
+{
+	// A pack of stim injectors.
+
+	default
+	{
+		HoldPoint.CapReward "Stimpack", 3;
+		HoldPoint.CapMax 50;
+		HoldPoint.CapRadius 64;
+	}
+
+	states
+	{
+		Spawn:
+			MEDI A -1;
+			Stop;
+	}
+}
