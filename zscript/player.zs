@@ -37,7 +37,6 @@ class MiamiPlayer : DoomPlayer
 		}
 	}
 
-	override int TakeSpecialDamage(Actor inf, Actor src, int dmg, Name mod)
 	override int DamageMobj (Actor inf, Actor src, int dmg, Name mod, int flags, double ang)
 	{
 		// Shields take 2 points of damage for every 1 point prevented.
@@ -57,7 +56,7 @@ class MiamiPlayer : DoomPlayer
 		}
 		else
 		{
-			return dmg;
+			return super.DamageMobj(inf,src,dmg,mod,flags,ang);
 		}
 	}
 }
