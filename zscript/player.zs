@@ -38,16 +38,18 @@ class MiamiPlayer : DoomPlayer
 	}
 
 	override int TakeSpecialDamage(Actor inf, Actor src, int dmg, Name mod)
+	override int DamageMobj (Actor inf, Actor src, int dmg, Name mod, int flags, double ang)
 	{
-		//console.printf("Took damage "..dmg.." with shield "..shield);
+		// Shields take 2 points of damage for every 1 point prevented.
+		int sdmg = dmg * 2;
 		if(shield > 0)
 		{
 			// Shields absorb all damage, even at the moment of breaking.
-			if(dmg > shield)
+			if(sdmg > shield)
 			{
 				A_StartSound("misc/sbreak",4);
 			}
-			shield = max(0, shield-dmg);
+			shield = max(0, shield-sdmg);
 			shieldTimer = 105;
 			A_TakeInventory("ShieldPoints",1);
 			return 0;
