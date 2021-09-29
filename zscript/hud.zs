@@ -4,6 +4,7 @@ class MiamiUI : BaseStatusBar
 
 	double hpval, armval, heatval, chargeval; // fill percentage
 	double armoramount, armormax; // armor details
+	int leftbarf, rightbarf, cbarf, ctextf, ltextf;
 
 	HUDFont mConFont; // Console font.
 
@@ -12,6 +13,13 @@ class MiamiUI : BaseStatusBar
 		// Set the size value here.
 		size = 128.0;
 		mConFont = HUDFont.Create("CONFONT");
+
+		// Set up some common position flags.
+		leftbarf = DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM;
+		rightbarf = DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM;
+		cbarf = DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM;
+		ctextf = DI_SCREEN_CENTER_BOTTOM | DI_ITEM_CENTER_BOTTOM | DI_TEXT_ALIGN_CENTER;
+		ltextf = DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM | DI_TEXT_ALIGN_LEFT;
 	}
 
 	void DrawHudBar(String img, Vector2 pos, double size, double xclip, double yclip, int flags)
@@ -37,22 +45,19 @@ class MiamiUI : BaseStatusBar
 		let plr = MiamiPlayer(CPlayer.mo);
 		// Start by gathering all our numbers.
 		hpval = double(plr.health)/double(plr.maxhealth);
-		[armoramount, armormax] = GetAmount("BasicArmor");
+		//[armoramount, armormax] = GetAmount("BasicArmor");
+		armoramount = plr.shield;
+		armormax = max(GetAmount("ShieldPoints"),1);
 		let wpn = EMWeapon(plr.player.ReadyWeapon);
 		let scr = plr.score;
 
-		if(armoramount && armormax) { armval = double(armoramount)/double(100); }
+		armval = double(armoramount)/double(armormax);
 
 		if(wpn) 
 		{ 
 			chargeval = wpn.charge/wpn.maxcharge; 
 			heatval = wpn.heat/wpn.maxheat;
 		}
-
-		// Set up some common position flags.
-		int leftbarf = DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM;
-		int rightbarf = DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM;
-		int centertxtf = DI_SCREEN_CENTER_BOTTOM | DI_ITEM_CENTER_BOTTOM | DI_TEXT_ALIGN_CENTER;
 
 		// And now the fun part.
 		beginHUD();
@@ -61,6 +66,7 @@ class MiamiUI : BaseStatusBar
 		DrawImage("HUDBACK", (0,0), leftbarf);
 		DrawHudBar("HUDBAR1", (0,0), size, 1.0, hpval, leftbarf);
 		DrawHudBar("HUDBAR2", (0,0), size, 1.0, armval, leftbarf);
+		DrawString(mConFont, FormatNumber(armormax,3,format:FNF_FILLZEROS),(80,-16),ltextf, Font.CR_CYAN);
 
 		// Right pannel, charge and heat.
 		DrawImage("HUDBACK2", (0,0), rightbarf);
@@ -68,7 +74,22 @@ class MiamiUI : BaseStatusBar
 		DrawHudBar("HUDBAR5", (0,0), size, 1.0, heatval, rightbarf);
 
 		// Score.
-		DrawString(mConFont, FormatNumber(scr,10,format:FNF_FILLZEROS), (0,-32), centertxtf, Font.CR_WHITE);
+		DrawString(mConFont, FormatNumber(scr,10,format:FNF_FILLZEROS), (0,-32), ctextf, Font.CR_WHITE);
 
+		// Keys.
+		String keySprites[6] =
+		{
+			"STKEYS2",
+			"STKEYS0",
+			"STKEYS1",
+			"STKEYS5",
+			"STKEYS3",
+			"STKEYS4"
+		};
+
+		for(int i = 0; i < 6; i++)
+		{
+			if(plr.CheckKeys(i+1,false,true)) { DrawImage(keySprites[i],(-40+(16*i),-8),cbarf,scale:(2,2)); }
+		}
 	}
 }

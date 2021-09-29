@@ -30,3 +30,8 @@ $pitchset weapons/gatlc 0.6
 weapons/gatlr "sounds/Fork.wav"
 weapons/gatls "sounds/Dartpick.wav"
 $pitchset weapons/gatls 1.1
+
+misc/sbreak "sounds/Ballhit.wav"
+misc/scharge "sounds/MSPick.wav"
+$pitchset misc/scharge 1.1
+misc/smax "sounds/MJPick.wav"

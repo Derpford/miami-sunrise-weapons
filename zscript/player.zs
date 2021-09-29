@@ -1,10 +1,60 @@
 class MiamiPlayer : DoomPlayer
 {
+	double shield;
+	int shieldTimer;
+
 	default
 	{
 		Player.StartItem "MiamiHands";
 		Player.StartItem "EMPistol";
+		Player.StartItem "ShieldPoints", 5;
 		Player.MaxHealth 100;
 		//Player.JumpZ 12;
+	}
+
+	override void Tick()
+	{
+		super.Tick();
+		if(shieldTimer < 1)
+		{
+			if(shield < CountInv("ShieldPoints"))
+			{
+				double newshield = CountInv("ShieldPoints")/70.;
+				if(shield+newshield >= CountInv("ShieldPoints"))
+				{
+					A_StartSound("misc/smax",4);
+				}
+				shield = clamp(0,shield+newshield,CountInv("ShieldPoints"));
+			}
+		}
+		else
+		{
+			shieldTimer -= 1;
+			if(shieldTimer < 1)
+			{
+				A_StartSound("misc/scharge",4);
+			}
+		}
+	}
+
+	override int TakeSpecialDamage(Actor inf, Actor src, int dmg, Name mod)
+	{
+		//console.printf("Took damage "..dmg.." with shield "..shield);
+		if(shield > 0)
+		{
+			// Shields absorb all damage, even at the moment of breaking.
+			if(dmg > shield)
+			{
+				A_StartSound("misc/sbreak",4);
+			}
+			shield = max(0, shield-dmg);
+			shieldTimer = 105;
+			A_TakeInventory("ShieldPoints",1);
+			return 0;
+		}
+		else
+		{
+			return dmg;
+		}
 	}
 }

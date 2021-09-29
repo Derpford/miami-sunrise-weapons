@@ -16,3 +16,4 @@ version "4.6"
 #include "zscript/gatling.zs"
 //items
 #include "zscript/cash.zs"
+#include "zscript/shields.zs"
