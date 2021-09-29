@@ -66,7 +66,8 @@ class MiamiUI : BaseStatusBar
 		DrawImage("HUDBACK", (0,0), leftbarf);
 		DrawHudBar("HUDBAR1", (0,0), size, 1.0, hpval, leftbarf);
 		DrawHudBar("HUDBAR2", (0,0), size, 1.0, armval, leftbarf);
-		DrawString(mConFont, FormatNumber(armormax,3,format:FNF_FILLZEROS),(80,-16),ltextf, Font.CR_CYAN);
+		DrawString(mConFont, FormatNumber(armormax,3,format:FNF_FILLZEROS),(44,-12),ltextf, Font.CR_CYAN);
+		//DrawString(mConFont, FormatNumber(plr.health,3,format:FNF_FILLZEROS),(112,-16),ltextf, Font.CR_BRICK);
 
 		// Right pannel, charge and heat.
 		DrawImage("HUDBACK2", (0,0), rightbarf);
