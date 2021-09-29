@@ -44,7 +44,7 @@ class MiamiUI : BaseStatusBar
 		super.draw(state,ticfrac);
 		let plr = MiamiPlayer(CPlayer.mo);
 		// Start by gathering all our numbers.
-		hpval = double(plr.health)/double(plr.maxhealth);
+		hpval = clamp(0,double(plr.health),100)/double(plr.maxhealth);
 		//[armoramount, armormax] = GetAmount("BasicArmor");
 		armoramount = plr.shield;
 		armormax = max(GetAmount("ShieldPoints"),1);
