@@ -1,7 +1,7 @@
 class ShieldPoints : Inventory
 {
 	// How much shielding can you have?
-	// Shields absorb damage and then recharge. Each hit they absorb removes one point of shielding.
+	// Shields absorb damage and then recharge. Each hit they absorb removes a percentage of your shielding.
 
 	default
 	{
