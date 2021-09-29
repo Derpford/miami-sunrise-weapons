@@ -17,3 +17,4 @@ version "4.6"
 //items
 #include "zscript/cash.zs"
 #include "zscript/shields.zs"
+#include "zscript/holds.zs"
