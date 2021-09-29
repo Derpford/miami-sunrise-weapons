@@ -20,7 +20,7 @@ class HoldPoint : Actor
 	{
 		HoldPoint.CapRadius 128.;
 		HoldPoint.CapCharge 1.,.5;
-		HoldPoint.CapMax 35.;
+		HoldPoint.CapMax 70.;
 	}
 
 	override void Tick()
