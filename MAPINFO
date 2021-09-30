@@ -2,4 +2,5 @@ gameinfo
 {
 	PlayerClasses = "MiamiPlayer"
 	StatusBarClass = "MiamiUI"
+	AddEventHandlers = "WaveHandler"
 }
