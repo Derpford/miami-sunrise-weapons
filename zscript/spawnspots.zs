@@ -12,12 +12,14 @@ class WaveHandler : EventHandler
 	double WaveTimer;
 	double AssaultTimer;
 	bool Assault;
+	int AssaultCount;
 	Array<WaveSpot> spots;
 
 	override void WorldLoaded(WorldEvent e)
 	{
 		AssaultTimer = 90.;
 		Assault = false;
+		AssaultCount = 0;
 	}
 
 	override void WorldThingDied(WorldEvent e)
@@ -40,8 +42,7 @@ class WaveHandler : EventHandler
 	{
 		if(spots.size()<1) { return; }
 		WaveSpot spot;
-		int numSpawns = 6;
-		while(numSpawns > 0)
+		int numSpawns = 4+AssaultCount;
 		{
 			//if(frandom(0,1)<0.2) { continue; } // chance that a spawnspot will be skipped
 			spot = spots[random(0,spots.size()-1)];
@@ -108,7 +109,8 @@ class WaveHandler : EventHandler
 			if(Assault)
 			{
 				Assault = false;
-				AssaultTimer = 90.;
+				AssaultTimer = 120.;
+				AssaultCount++;
 			}
 			else
 			{
