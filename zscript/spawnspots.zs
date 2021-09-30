@@ -19,7 +19,7 @@ class WaveHandler : EventHandler
 
 	override void WorldLoaded(WorldEvent e)
 	{
-		AssaultTimer = 30.;
+		AssaultTimer = 90.;
 		Assault = false;
 	}
 
@@ -45,28 +45,36 @@ class WaveHandler : EventHandler
 		while(spot = WaveSpot(it.next()))
 		{
 			bool sight = false; // Is this spot visible to a player?
-			double dist = 999;
+			double dist = -1;
 			Actor closestplr;
 			for(int i = 0; i < players.size(); i++)
 			{
 				double newdist = dist;
-				if(players[i].mo && players[i].mo.CheckSight(spot))
+				if(players[i].mo)
 				{
-					sight = true;
+					if(players[i].mo.CheckSight(spot))
+					{
+						sight = true;
+					}
+					newdist = spot.Vec2To(players[i].mo).length(); 
+					//string plrname = players[i].mo.GetTag();
+					//console.printf("Found MO "..plrname);
 				}
-				if(players[i].mo) { double newdist = spot.Vec2To(players[i].mo).length(); }
-				if(newdist<dist)
+				if(newdist<dist || dist == -1)
 				{
 					closestplr = players[i].mo;
+					//console.printf("Set closest player "..i.." at "..newdist);
 					dist = newdist;
 				}
 			}
 			if(!sight)
 			{
-				let it = spot.Spawn(spot.SpawnType,spot.pos);
-				it.target = closestplr;
-				it.goal = closestplr;
-				it.PlayActiveSound();
+				let mon = spot.Spawn(spot.SpawnType,spot.pos);
+				//console.printf("Player: "..closestplr);
+				mon.target = closestplr;
+				mon.PlayActiveSound();
+				mon.SoundAlert(mon.target);
+				mon.SetState(mon.ResolveState("See"));
 			}
 		}
 	}
