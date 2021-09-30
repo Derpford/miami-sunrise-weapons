@@ -92,7 +92,7 @@ class WaveHandler : EventHandler
 			if(Assault)
 			{
 				SpawnWave();
-				WaveTimer = 20.;
+				WaveTimer = 30.;
 			}
 		}
 
@@ -110,9 +110,8 @@ class WaveHandler : EventHandler
 			else
 			{
 				Assault = true;
-				WaveTimer = 20.;
-				SpawnWave();
-				AssaultTimer = 60.;
+				WaveTimer = 30.;
+				AssaultTimer = 90.;
 			}
 		}
 	}
@@ -122,7 +121,7 @@ class WaveHandler : EventHandler
 		let mBigFont = BigFont;
 		string timer = "NEXT WAVE : ";
 		if(Assault) { timer = "!ASSAULT! : "; }
-		string val = String.format("%.5s",""..AssaultTimer);
-		Screen.DrawText(mBigFont,Font.CR_YELLOW,32,32,timer..val,DTA_ScaleX,2,DTA_ScaleY,2);
+		string val = String.format("%.2f",AssaultTimer);
+		Screen.DrawText(mBigFont,Font.CR_YELLOW,32,64,timer..val,DTA_ScaleX,2,DTA_ScaleY,2);
 	}
 }
