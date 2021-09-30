@@ -43,6 +43,8 @@ class WaveHandler : EventHandler
 		if(spots.size()<1) { return; }
 		WaveSpot spot;
 		int numSpawns = 4+AssaultCount;
+		int numTries = numSpawns*2;
+		while(numTries>0 && numSpawns > 0)
 		{
 			//if(frandom(0,1)<0.2) { continue; } // chance that a spawnspot will be skipped
 			spot = spots[random(0,spots.size()-1)];
@@ -79,6 +81,10 @@ class WaveHandler : EventHandler
 				mon.SetState(mon.ResolveState("See"));
 				mon.A_GiveInventory("SpawnedToken");
 				numSpawns--;
+			}
+			else
+			{
+				numTries--;
 			}
 		}
 	}
