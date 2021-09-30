@@ -12,10 +12,7 @@ class WaveHandler : EventHandler
 	double WaveTimer;
 	double AssaultTimer;
 	bool Assault;
-
-	override void OnRegister()
-	{
-	}
+	Array<WaveSpot> spots;
 
 	override void WorldLoaded(WorldEvent e)
 	{
@@ -23,9 +20,9 @@ class WaveHandler : EventHandler
 		Assault = false;
 	}
 
-	override void WorldThingSpawned(WorldEvent e)
+	override void WorldThingDied(WorldEvent e)
 	{
-		if(Level.time < 5 && e.Thing.bISMONSTER)
+		if(!Assault && e.Thing.bISMONSTER && e.Thing.CountInv("SpawnedToken")<1)
 		{
 			Vector3 spawnpos = e.Thing.pos;
 			e.Thing.FindFloorCeiling();
@@ -35,15 +32,19 @@ class WaveHandler : EventHandler
 			}
 			let spot = WaveSpot(e.Thing.Spawn("WaveSpot",spawnpos));
 			spot.SpawnType = e.Thing.GetClassName();
+			spots.push(spot);
 		}
 	}
 
 	void SpawnWave()
 	{
-		let it = ThinkerIterator.Create("WaveSpot",Thinker.STAT_DEFAULT);
+		if(spots.size()<1) { return; }
 		WaveSpot spot;
-		while(spot = WaveSpot(it.next()))
+		int numSpawns = 6;
+		while(numSpawns > 0)
 		{
+			//if(frandom(0,1)<0.2) { continue; } // chance that a spawnspot will be skipped
+			spot = spots[random(0,spots.size()-1)];
 			bool sight = false; // Is this spot visible to a player?
 			double dist = -1;
 			Actor closestplr;
@@ -75,6 +76,8 @@ class WaveHandler : EventHandler
 				mon.PlayActiveSound();
 				mon.SoundAlert(mon.target);
 				mon.SetState(mon.ResolveState("See"));
+				mon.A_GiveInventory("SpawnedToken");
+				numSpawns--;
 			}
 		}
 	}
@@ -92,7 +95,7 @@ class WaveHandler : EventHandler
 			if(Assault)
 			{
 				SpawnWave();
-				WaveTimer = 30.;
+				WaveTimer = 10.;
 			}
 		}
 
@@ -110,7 +113,7 @@ class WaveHandler : EventHandler
 			else
 			{
 				Assault = true;
-				WaveTimer = 30.;
+				WaveTimer = 10.;
 				AssaultTimer = 90.;
 			}
 		}
@@ -124,4 +127,9 @@ class WaveHandler : EventHandler
 		string val = String.format("%.2f",AssaultTimer);
 		Screen.DrawText(mBigFont,Font.CR_YELLOW,32,64,timer..val,DTA_ScaleX,2,DTA_ScaleY,2);
 	}
+}
+
+class SpawnedToken : Inventory
+{
+	// Tracks if a monster was spawned by the wave system.
 }
