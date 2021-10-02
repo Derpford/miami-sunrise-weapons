@@ -14,6 +14,11 @@ class HoldPoint : Actor
 	Property CapMax: CapMax;
 	Property CapReward: CapReward, CapDrops;
 
+	// May also come with cover.
+	int Barriers;
+	int BarrierMinHeight, BarrierMaxHeight;
+	Property Barriers : Barriers;
+	Property BarrierHeight : BarrierMinHeight, BarrierMaxHeight;
 
 
 	default
@@ -21,6 +26,28 @@ class HoldPoint : Actor
 		HoldPoint.CapRadius 128.;
 		HoldPoint.CapCharge 1.,.5;
 		HoldPoint.CapMax 70.;
+		HoldPoint.Barriers 1;
+		HoldPoint.BarrierHeight 3,5;
+
+	}
+
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		// Spawn some barriers.
+		for(int i = random(0,Barriers); i > 0; i--)
+		{
+			double ang = frandom(0,360);
+			Vector3 spawnpos = Vec3Angle(CapRadius,ang);
+			let it = Barrier(Spawn("Barrier",spawnpos));
+			if(it)
+			{ 
+				it.angle = ang; 
+				it.barrierheight = random(BarrierMinHeight,BarrierMaxHeight);
+				it.master = self;
+				it.needMaster = true;
+			}
+		}
 	}
 
 	override void Tick()
@@ -100,6 +127,28 @@ class CapSparkle : Actor
 		+NOINTERACTION;
 		+BRIGHT;
 		RenderStyle "AddStencil";
+		StencilColor "FFE521";
+	}
+
+	states
+	{
+		Spawn:
+			PUFF A 2;
+			Stop;
+	}
+}
+
+class HardLight : Actor
+{
+	// A piece of a hardlight object.
+	default
+	{
+		+NOGRAVITY;
+		+BRIGHT;
+		+SOLID;
+		// TODO: Shootable?
+		Radius 4;
+		RenderStyle "AddStencil";
 		StencilColor "08E2FF";
 	}
 
@@ -108,6 +157,49 @@ class CapSparkle : Actor
 		Spawn:
 			PUFF A 2;
 			Stop;
+	}
+}
+
+class Barrier : Actor
+{
+	// A hardlight barrier.
+	int width;
+	int barrierheight;
+	bool needMaster;
+	Property Size : width, barrierheight;
+
+	//Array< Array<Actor> > chunks;
+
+	default
+	{
+		Barrier.Size 5,5;
+	}
+
+	override void Tick()
+	{
+		Super.tick();
+		if(needMaster && !master)
+		{
+			// Owner disappeared.
+			Die(self,self,0,"MDK");
+		}
+		// Spawn a whole bunch of HardLight.
+		// Track it via the array.
+
+		double offset = -(width/2.); // How far on the XY axis is the edge?
+		double gap = 8; // How far apart are the dots?
+
+		for(int i = 0; i < barrierheight; i++)
+		{
+			//Array<HardLight> row;
+			for(int j = 0; j < width; j++)
+			{
+				Vector3 spawnpos = Vec3Angle(offset+(gap*j),angle+90,gap*(i+1));
+				Spawn("HardLight",spawnpos);
+				//row.push(it);
+			}
+			//chunks.push(row);
+		}
 	}
 }
 
