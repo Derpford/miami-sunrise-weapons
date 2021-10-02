@@ -214,6 +214,7 @@ class MedPack : HoldPoint replaces Medikit
 		HoldPoint.CapMax 50;
 		HoldPoint.CapRadius 64;
 		HoldPoint.CapCharge 1., 2.;
+		HoldPoint.Barriers 0;
 	}
 
 	states
