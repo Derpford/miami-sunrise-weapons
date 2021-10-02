@@ -146,8 +146,11 @@ class HardLight : Actor
 		+NOGRAVITY;
 		+BRIGHT;
 		+SOLID;
-		// TODO: Shootable?
-		Radius 4;
+		+SHOOTABLE;
+		BloodType "EMTrail";
+		Health 20;
+		Radius 6;
+		Height 4;
 		RenderStyle "AddStencil";
 		StencilColor "08E2FF";
 	}
@@ -156,6 +159,9 @@ class HardLight : Actor
 	{
 		Spawn:
 			PUFF A 2;
+			Stop;
+		Death:
+			PLS2 AB 2;
 			Stop;
 	}
 }
@@ -172,7 +178,7 @@ class Barrier : Actor
 
 	default
 	{
-		Barrier.Size 5,5;
+		Barrier.Size 5,3;
 	}
 
 	override void Tick()
@@ -187,14 +193,14 @@ class Barrier : Actor
 		// Track it via the array.
 
 		double offset = -(width/2.); // How far on the XY axis is the edge?
-		double gap = 8; // How far apart are the dots?
+		double gap = 10; // How far apart are the dots?
 
 		for(int i = 0; i < barrierheight; i++)
 		{
 			//Array<HardLight> row;
 			for(int j = 0; j < width; j++)
 			{
-				Vector3 spawnpos = Vec3Angle(offset+(gap*j),angle+90,gap*(i+1));
+				Vector3 spawnpos = Vec3Angle(offset+(gap*j),angle+90,(gap/2.)+(gap*i));
 				Spawn("HardLight",spawnpos);
 				//row.push(it);
 			}
@@ -203,6 +209,21 @@ class Barrier : Actor
 	}
 }
 
+class BarrierSpawner : Inventory
+{
+	// A pocket barrier device. Mostly for debugging.
+	default
+	{
+		+Inventory.INVBAR;
+		Inventory.Icon "BON2A0";
+	}
+
+	override bool Use(bool pickup)
+	{
+		owner.A_SpawnItemEX("Barrier",xofs:32);
+		return false;
+	}
+}
 
 class MedPack : HoldPoint replaces Medikit
 {
