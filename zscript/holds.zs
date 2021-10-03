@@ -155,6 +155,13 @@ class HardLight : Actor
 		StencilColor "08E2FF";
 	}
 
+	override int DamageMobj(Actor inf, Actor src, int dmg, Name mod, int flags, double ang)
+	{
+		//master.DamageMobj(inf,src,dmg,mod,flags,ang);
+		A_DamageMaster(dmg);
+		return super.DamageMobj(inf,src,dmg,mod,flags,ang);
+	}
+
 	states
 	{
 		Spawn:
@@ -178,7 +185,13 @@ class Barrier : Actor
 
 	default
 	{
+		+SHOOTABLE;
+		+DONTTHRUST;
+		+WALLSPRITE;
+		Height 1;
+		Radius 1;
 		Barrier.Size 5,3;
+		Health 100;
 	}
 
 	override void Tick()
@@ -189,11 +202,17 @@ class Barrier : Actor
 			// Owner disappeared.
 			Die(self,self,0,"MDK");
 		}
+
+		if(health < 1)
+		{
+			// We ate too much damage.
+			Die(self,self,0,"MDK");
+		}
 		// Spawn a whole bunch of HardLight.
 		// Track it via the array.
 
-		double offset = -(width/2.); // How far on the XY axis is the edge?
 		double gap = 10; // How far apart are the dots?
+		double offset = -((width-1)*gap)/2.; // How far on the XY axis is the edge?
 
 		for(int i = 0; i < barrierheight; i++)
 		{
@@ -201,11 +220,19 @@ class Barrier : Actor
 			for(int j = 0; j < width; j++)
 			{
 				Vector3 spawnpos = Vec3Angle(offset+(gap*j),angle+90,(gap/2.)+(gap*i));
-				Spawn("HardLight",spawnpos);
+				let it = Spawn("HardLight",spawnpos);
+				it.master = self;
 				//row.push(it);
 			}
 			//chunks.push(row);
 		}
+	}
+
+	states
+	{
+		Spawn:
+			BARR A -1;
+			Stop;
 	}
 }
 
