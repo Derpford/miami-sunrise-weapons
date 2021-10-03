@@ -21,7 +21,7 @@ class EMShotgun : EMWeapon replaces Shotgun
 			A_GunFlash();
 			A_Heat();
 			A_StartSound("weapons/shotgf",1);
-			for(int i = 0; i < 5; i++)
+			for(int i = 0; i < 10; i++)
 			{
 				A_FireProjectile("EMPellet",angle:frandom(-invoker.heat,invoker.heat),pitch:frandom(-1,-3));
 			}
@@ -77,8 +77,9 @@ class EMPellet : EMShot
 	default
 	{
 		Speed 70;
-		DamageFunction 10+random(0,10);
+		DamageFunction 5+random(0,5);
 		EMShot.Spread .2, .1;
 		EMShot.Time 5;
+		MissileType "ShredTrail";
 	}
 }
