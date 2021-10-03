@@ -22,3 +22,4 @@ version "4.6"
 #include "zscript/spawnspots.zs"
 //monsters
 #include "zscript/monster.zs"
+#include "zscript/monster/thug.zs"
