@@ -23,3 +23,4 @@ version "4.6"
 //monsters
 #include "zscript/monster.zs"
 #include "zscript/monster/thug.zs"
+#include "zscript/monster/riot.zs"
