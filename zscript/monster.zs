@@ -16,6 +16,12 @@ class MiamiMonster : Actor
 		MiamiMonster.range 512;
 	}
 
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		charge = 0;
+	}
+
 	override void Tick()
 	{
 		Super.tick();
@@ -34,11 +40,12 @@ class MiamiMonster : Actor
 	action void A_Charge(double amt = 1.)
 	{
 		invoker.charge += amt;
+		//console.printf("Charge: "..invoker.charge);
 	}
 
 	action void A_Discharge(double amt = 1.)
 	{
-		invoker.charge -= amt;
+		invoker.charge = clamp(0,invoker.charge-amt,invoker.charge);
 	}
 
 	action bool A_ChargeReady()
@@ -58,13 +65,9 @@ class MiamiMonster : Actor
 		}
 	}
 
-	action void A_ChargeOrFire(double min = 0)
+	action void A_ChargeOrFire(double min = -1)
 	{
-		if(min < 0)
-		{
-			min = invoker.chargemax;
-		}
-		if(invoker.charge > min)
+		if(A_ChargeCheck(min))
 		{
 			invoker.SetState(invoker.ResolveState("Fire"));
 		}
