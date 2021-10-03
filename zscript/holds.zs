@@ -146,11 +146,12 @@ class HardLight : Actor
 		+NOGRAVITY;
 		+BRIGHT;
 		+SOLID;
+		+WALLSPRITE;
 		+SHOOTABLE;
 		BloodType "EMTrail";
 		Health 20;
-		Radius 6;
-		Height 4;
+		Radius 5;
+		Height 10;
 		RenderStyle "AddStencil";
 		StencilColor "08E2FF";
 	}
@@ -158,18 +159,52 @@ class HardLight : Actor
 	override int DamageMobj(Actor inf, Actor src, int dmg, Name mod, int flags, double ang)
 	{
 		//master.DamageMobj(inf,src,dmg,mod,flags,ang);
-		A_DamageMaster(dmg);
+		A_DamageMaster(dmg/2);
 		return super.DamageMobj(inf,src,dmg,mod,flags,ang);
 	}
 
 	states
 	{
 		Spawn:
+			PUFF A 0;
+			PUFF A 0
+			{
+				if(frandom(0,1)<0.001)
+				{
+					return ResolveState("Spawn3");
+				}
+				if(frandom(0,1)<0.001)
+				{
+					return ResolveState("Spawn4");
+				}
+				else
+				{
+					return ResolveState("Spawn2");
+				}
+
+			}
+		Spawn2:
 			PUFF A 2;
 			Stop;
-		Death:
-			PLS2 AB 2;
+		Spawn3:
+			PUFF C 2;
 			Stop;
+		Spawn4:
+			PUFF D 2;
+			Stop;
+		Death:
+			PUFF ABCD 2;
+			Stop;
+	}
+}
+
+class HardLightTop : HardLight
+{
+	// The top row of hardlight, with a lower profile.
+	default
+	{
+		Height 2;
+		//StencilColor "FFFFFF";// for testing
 	}
 }
 
@@ -188,8 +223,9 @@ class Barrier : Actor
 		+SHOOTABLE;
 		+DONTTHRUST;
 		+WALLSPRITE;
-		Height 1;
-		Radius 1;
+		BloodType "EMTrail";
+		Height 3;
+		Radius 6;
 		Barrier.Size 5,3;
 		Health 100;
 	}
@@ -220,7 +256,16 @@ class Barrier : Actor
 			for(int j = 0; j < width; j++)
 			{
 				Vector3 spawnpos = Vec3Angle(offset+(gap*j),angle+90,(gap/2.)+(gap*i));
-				let it = Spawn("HardLight",spawnpos);
+				Actor it;
+				if( i == barrierheight-1 )
+				{
+					it = Spawn("HardLightTop",spawnpos);
+				}
+				else
+				{
+					it = Spawn("HardLight",spawnpos);
+				}
+				it.angle = angle;
 				it.master = self;
 				//row.push(it);
 			}
