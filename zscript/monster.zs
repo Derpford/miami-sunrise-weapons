@@ -4,18 +4,31 @@ class MiamiMonster : Actor
 
 	double charge, chargemax;
 
+	double range; // optimal range in map units
+
 	Property charge : chargemax;
+	Property range : range;
 
 	default
 	{
 		MONSTER;
 		MiamiMonster.charge 35.;
+		MiamiMonster.range 512;
 	}
 
 	override void Tick()
 	{
 		Super.tick();
 		//charge = clamp(0,charge-1,chargemax);
+
+		if(target && Vec2To(target).length()<range)
+		{
+			bFRIGHTENED = true;
+		}
+		else
+		{
+			bFRIGHTENED = false;
+		}
 	}
 
 	action void A_Charge(double amt = 1.)
