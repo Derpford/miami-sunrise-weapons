@@ -145,7 +145,7 @@ class HardLight : Actor
 	{
 		+NOGRAVITY;
 		+BRIGHT;
-		+SOLID;
+		//+SOLID;
 		+WALLSPRITE;
 		+SHOOTABLE;
 		BloodType "EMTrail";
@@ -184,13 +184,13 @@ class HardLight : Actor
 
 			}
 		Spawn2:
-			PUFF A 2;
+			PUFF A 1;
 			Stop;
 		Spawn3:
-			PUFF C 2;
+			PUFF C 1;
 			Stop;
 		Spawn4:
-			PUFF D 2;
+			PUFF D 1;
 			Stop;
 		Death:
 			PUFF ABCD 2;
@@ -230,23 +230,8 @@ class Barrier : Actor
 		Health 100;
 	}
 
-	override void Tick()
+	virtual void SpawnLight()
 	{
-		Super.tick();
-		if(needMaster && !master)
-		{
-			// Owner disappeared.
-			Die(self,self,0,"MDK");
-		}
-
-		if(health < 1)
-		{
-			// We ate too much damage.
-			Die(self,self,0,"MDK");
-		}
-		// Spawn a whole bunch of HardLight.
-		// Track it via the array.
-
 		double gap = 10; // How far apart are the dots?
 		double offset = -((width-1)*gap)/2.; // How far on the XY axis is the edge?
 
@@ -271,6 +256,24 @@ class Barrier : Actor
 			}
 			//chunks.push(row);
 		}
+	}
+	override void Tick()
+	{
+		Super.tick();
+		if(needMaster && !master)
+		{
+			// Owner disappeared.
+			Die(self,self,0,"MDK");
+		}
+
+		if(health < 1)
+		{
+			// We ate too much damage.
+			Die(self,self,0,"MDK");
+		}
+		// Spawn a whole bunch of HardLight.
+		// Track it via the array.
+		SpawnLight();
 	}
 
 	states
