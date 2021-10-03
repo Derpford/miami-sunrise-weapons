@@ -34,17 +34,7 @@ class PistolThug : MiamiMonster replaces ZombieMan
 			Loop;
 
 		Missile:
-			MGPS A 2
-			{
-				if(invoker.charge>random(0,10))
-				{
-					return ResolveState("Fire");
-				}
-				else
-				{
-					return ResolveState("Charge");
-				}
-			}
+			MGPS A 2 A_ChargeOrFire();
 			Goto See;
 
 		Charge:

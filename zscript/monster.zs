@@ -45,4 +45,21 @@ class MiamiMonster : Actor
 	{
 		return invoker.charge >= invoker.chargemax;
 	}
+
+	action bool A_ChargeCheck(double amt)
+	{
+		return invoker.charge > amt;
+	}
+
+	action void A_ChargeOrFire(double min)
+	{
+		if(invoker.charge > min)
+		{
+			invoker.SetState(invoker.ResolveState("Fire"));
+		}
+		else
+		{
+			invoker.SetState(invoker.ResolveState("Charge"));
+		}
+	}
 }
