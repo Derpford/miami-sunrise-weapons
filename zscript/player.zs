@@ -39,8 +39,8 @@ class MiamiPlayer : DoomPlayer
 
 	override int DamageMobj (Actor inf, Actor src, int dmg, Name mod, int flags, double ang)
 	{
-		// Shields take 2 points of damage for every 1 point prevented.
-		int sdmg = dmg * 2;
+		// Shields take 1 points of damage for every 1 point prevented.
+		int sdmg = dmg * 1;
 		if(shield > 0)
 		{
 			// Shields absorb all damage, even at the moment of breaking.
