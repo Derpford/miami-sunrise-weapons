@@ -12,6 +12,7 @@ class MiamiMonster : Actor
 	default
 	{
 		MONSTER;
+		+MISSILEMORE;
 		MiamiMonster.charge 35.;
 		MiamiMonster.range 512;
 	}

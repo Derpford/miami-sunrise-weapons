@@ -47,7 +47,7 @@ class PistolThug : MiamiMonster replaces ZombieMan
 			{
 				if(A_ChargeReady())
 				{
-					bMISSILEMORE = true;
+					bMISSILEEVENMORE = true;
 					A_StartSound("weapons/pisr",1);
 					return ResolveState("See");
 				}
@@ -70,7 +70,7 @@ class PistolThug : MiamiMonster replaces ZombieMan
 				}
 				else
 				{
-					bMISSILEMORE = false;
+					bMISSILEEVENMORE = false;
 					return ResolveState(null);
 				}
 			}
