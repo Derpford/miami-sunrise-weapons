@@ -47,6 +47,7 @@ class BarrierThug : PistolThug replaces Demon
 			A_SpawnItemEX("ShieldBonus");
 			A_SpawnItemEX("ShieldBonus");
 			A_SpawnItemEX("ShieldBonus");
+			A_SpawnItemEX("BlueCredit");
 			shield.Die(src,inf,flags,mod);
 		}
 	}
