@@ -121,6 +121,7 @@ class WaveHandler : EventHandler
 			else
 			{
 				Assault = true;
+				SpawnWave();
 				WaveTimer = 10.;
 				AssaultTimer = 90.;
 			}
