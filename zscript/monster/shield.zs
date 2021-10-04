@@ -22,6 +22,7 @@ class BarrierThug : PistolThug replaces Demon
 		ActiveSound "shotguy/active";	
 		Obituary "%o got outflanked by some jerk with a Barrier.";
 		Translation "128:159=#[0,255,0]";
+		MiamiMonster.bonus "CreditCard", 1, 3;
 	}
 
 	override void PostBeginPlay()
@@ -30,6 +31,8 @@ class BarrierThug : PistolThug replaces Demon
 		Vector3 spawnpos = pos;
 		spawnpos.z += 24;
 		shield = Spawn("HoverBarrier",spawnpos);
+		let it = HoverBarrier(shield);
+		if(it) { it.master = self; it.needMaster = true; }
 		shieldang = 0;
 	}
 
@@ -39,17 +42,10 @@ class BarrierThug : PistolThug replaces Demon
 		if(shield) { shield.Warp(self,32,zofs:24,angle:shieldang); }
 	}
 
-	override void Die(Actor src, Actor inf, int flags, Name mod)
+	override bool SpecialDeath()
 	{
-		Super.Die(src,inf,flags,mod);
-		if(shield) 
-		{ 
-			A_SpawnItemEX("ShieldBonus");
-			A_SpawnItemEX("ShieldBonus");
-			A_SpawnItemEX("ShieldBonus");
-			A_SpawnItemEX("BlueCredit");
-			shield.Die(src,inf,flags,mod);
-		}
+		if(shield) { return true; }
+		else { return false; }
 	}
 
 	states

@@ -30,6 +30,11 @@ class RiotCop : MiamiMonster replaces ShotgunGuy
 		}
 	}
 
+	override bool SpecialDeath()
+	{
+		return charge > 0;
+	}
+
 	states
 	{
 		Spawn:

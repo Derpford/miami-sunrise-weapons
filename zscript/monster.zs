@@ -6,8 +6,14 @@ class MiamiMonster : Actor
 
 	double range; // optimal range in map units
 
+	int numShieldBonus; // how many shield bonuses to drop on special kill
+	int numScoreBonus;
+	name scoreBonus; // what item(s) to drop on special kill (why don't we have array props yet?)
+
 	Property charge : chargemax;
 	Property range : range;
+
+	Property bonus : scoreBonus, numScoreBonus, numShieldBonus;
 
 	default
 	{
@@ -15,6 +21,7 @@ class MiamiMonster : Actor
 		+MISSILEMORE;
 		MiamiMonster.charge 35.;
 		MiamiMonster.range 512;
+		MiamiMonster.bonus "CashBundle", 1, 1;
 	}
 
 	override void PostBeginPlay()
@@ -36,6 +43,29 @@ class MiamiMonster : Actor
 		{
 			bFRIGHTENED = false;
 		}
+	}
+
+	virtual bool SpecialDeath()
+	{
+		// returns true if we get a special death bonus.
+		return false;
+	}
+
+	override void Die(Actor src, Actor inf, int flags, Name mod)
+	{
+		if(SpecialDeath())
+		{
+			for(int i = 0; i < numShieldBonus; i++)
+			{
+				A_SpawnItemEX("ShieldBonus",xvel:frandom(-3,3),yvel:frandom(-3,3),zvel:frandom(8,12));
+			}
+
+			for(int i = 0; i < numScoreBonus; i++)
+			{
+				A_SpawnItemEX(scoreBonus,xvel:frandom(-3,3),yvel:frandom(-3,3),zvel:frandom(8,12));
+			}
+		}	
+		Super.Die(src,inf,flags,mod);
 	}
 
 	action void A_Charge(double amt = 1.)

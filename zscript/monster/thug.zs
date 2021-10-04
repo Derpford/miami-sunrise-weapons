@@ -23,6 +23,11 @@ class PistolThug : MiamiMonster replaces ZombieMan
 		A_StartSound("weapons/pisf",1);
 	}
 
+	override bool SpecialDeath()
+	{
+		return charge > 0;
+	}
+
 	states
 	{
 		Spawn:
