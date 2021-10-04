@@ -261,7 +261,7 @@ class Barrier : Actor
 	override void Tick()
 	{
 		Super.tick();
-		if(needMaster && !master)
+		if(needMaster && (!master || master.bCORPSE))
 		{
 			// Owner disappeared.
 			Die(self,self,0,"MDK");
