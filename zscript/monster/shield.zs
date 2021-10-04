@@ -28,7 +28,7 @@ class BarrierThug : PistolThug replaces Demon
 	{
 		Super.PostBeginPlay();
 		Vector3 spawnpos = pos;
-		spawnpos.z += 32;
+		spawnpos.z += 24;
 		shield = Spawn("HoverBarrier",spawnpos);
 		shieldang = 0;
 	}
@@ -36,7 +36,7 @@ class BarrierThug : PistolThug replaces Demon
 	override void Tick()
 	{
 		super.Tick();
-		if(shield) { shield.Warp(self,32,zofs:28,angle:shieldang); }
+		if(shield) { shield.Warp(self,32,zofs:24,angle:shieldang); }
 	}
 
 	override void Die(Actor src, Actor inf, int flags, Name mod)
@@ -109,7 +109,8 @@ class HoverBarrier : Barrier
 	{
 		+NOGRAVITY;
 		Health 40;
-		Barrier.Size 4,4;
+		Barrier.Size 4,5;
+		Height 6;
 	}
 
 	override void SpawnLight()

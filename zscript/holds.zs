@@ -150,7 +150,7 @@ class HardLight : Actor
 		+SHOOTABLE;
 		BloodType "EMTrail";
 		Health 20;
-		Radius 5;
+		Radius 3;
 		Height 10;
 		RenderStyle "AddStencil";
 		StencilColor "08E2FF";
@@ -159,6 +159,7 @@ class HardLight : Actor
 	override int DamageMobj(Actor inf, Actor src, int dmg, Name mod, int flags, double ang)
 	{
 		//master.DamageMobj(inf,src,dmg,mod,flags,ang);
+		//console.printf("Damaged owner for "..(dmg/2));
 		A_DamageMaster(dmg/2);
 		return super.DamageMobj(inf,src,dmg,mod,flags,ang);
 	}
