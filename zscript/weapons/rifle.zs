@@ -24,7 +24,6 @@ class EMRifle : EMWeapon replaces Chaingun
 			A_Heat();
 			double spread = invoker.heat/2.;
 			A_FireProjectile("EMRifleShot",angle:frandom(-spread,spread),pitch:frandom(-1,-spread));
-			//A_Discharge(1);
 			A_StartSound("weapons/riflef",1);
 		}
 	}
