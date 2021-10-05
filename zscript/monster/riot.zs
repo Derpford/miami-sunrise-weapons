@@ -14,7 +14,8 @@ class RiotCop : MiamiMonster replaces ShotgunGuy
 		PainSound "shotguy/pain";
 		DeathSound "shotguy/death";
 		ActiveSound "shotguy/active";	
-		DropItem "CashBundle";
+		DropItem "EMShotgun";
+		DropItem "CashBundle", 192;
 		DropItem "CreditCard", 192;
 		DropItem "ShieldBonus", 128;
 		Obituary "%o was read the riot act by a bootlicker.";

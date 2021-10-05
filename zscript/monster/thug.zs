@@ -12,7 +12,7 @@ class PistolThug : MiamiMonster replaces ZombieMan
 		DeathSound "grunt/death";
 		ActiveSound "grunt/active";
 		Obituary "%o had a cap popped in %h.";
-		DropItem "CashBundle";
+		DropItem "EMPistol";
 		DropItem "CashBundle", 128;
 	}
 

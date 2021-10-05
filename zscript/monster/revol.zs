@@ -8,7 +8,7 @@ class RevolverThug : PistolThug replaces DoomImp
 		Health 35;
 		Translation "128:151=@35[255,0,0]";
 		MiamiMonster.charge 15;
-		DropItem "CashBundle";
+		DropItem "Maelstrom";
 		DropItem "CashBundle";
 		DropItem "CreditCard", 128;
 		Obituary "%o found out about reloading during a battle.";

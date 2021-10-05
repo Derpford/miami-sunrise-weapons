@@ -12,8 +12,8 @@ class BarrierThug : PistolThug replaces Demon
 		Speed 8;
 		Height 48;
 		MiamiMonster.range 256;
-		DropItem "CashBundle";
-		DropItem "CashBundle";
+		DropItem "EMPistol";
+		DropItem "CashBundle", 128;
 		DropItem "CreditCard", 128;
 		SeeSound "shotguy/sight";
 		AttackSound "shotguy/attack";
