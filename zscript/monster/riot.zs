@@ -100,6 +100,7 @@ class RiotShieldCop : RiotCop replaces Spectre
 	default
 	{
 		MiamiMonster.bonus "CreditCard", 2, 3;
+		Obituary "%o got cornered by a pig.";
 	}
 
 	override void PostBeginPlay()
