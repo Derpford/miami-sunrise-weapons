@@ -88,3 +88,61 @@ class RiotCop : MiamiMonster replaces ShotgunGuy
 
 	}
 }
+
+class RiotShieldCop : RiotCop replaces Spectre
+{
+	// The riot shield cop has scrounged up a shield.
+	// It's hard to hold a shield and a shotgun at the same time, though...
+
+	Actor shield;
+
+	double shieldang;
+
+	override void PostBeginPlay()
+	{
+		Super.PostBeginPlay();
+		Vector3 spawnpos = pos;
+		spawnpos.z += 24;
+		shield = Spawn("HoverBarrier",spawnpos);
+		let it = HoverBarrier(shield);
+		if(it) { it.master = self; it.needMaster = true; }
+		shieldang = 30;
+	}
+
+	override void Tick()
+	{
+		super.Tick();
+		if(shield) { shield.Warp(self,32,zofs:24,angle:shieldang); }
+	}
+
+	override bool SpecialDeath()
+	{
+		if(shield) { return true; }
+		else { return false; }
+	}
+
+	states
+	{
+		See:
+			ASGZ ABCD 3 { A_Chase(flags:CHF_NORANDOMTURN); A_FaceTarget(5); }
+			Loop;
+
+		Charge:
+			ASGZ E 1
+			{
+				A_Charge();
+				invoker.shieldang = 60;
+				A_StartSound("weapons/shotgc",1,CHANF_NOSTOP);
+			}
+			ASGZ E 1 A_ChargeOrFire();
+			Goto See;
+
+		Fire:
+			ASGZ E 2 { A_FaceTarget(); invoker.shieldang = 90; }
+			ASGZ E 4 A_Pain();
+			ASGZ F 3 A_RiotShot();
+			ASGZ E 2;
+			ASGZ G 3 { invoker.shieldang = 30; }
+			Goto See;
+	}
+}
