@@ -39,6 +39,11 @@ class MiamiMonster : Actor
 		Super.tick();
 		//charge = clamp(0,charge-1,chargemax);
 
+		if(A_ChargeCheck(0))
+		{
+			A_StartSound("weapons/idlec",2,CHANF_NOSTOP);
+		}
+
 		if(target && Vec2To(target).length()<range)
 		{
 			bFRIGHTENED = true;
@@ -57,6 +62,7 @@ class MiamiMonster : Actor
 
 	override void Die(Actor src, Actor inf, int flags, Name mod)
 	{
+		charge = 0;
 		if(SpecialDeath())
 		{
 			for(int i = 0; i < numShieldBonus; i++)
