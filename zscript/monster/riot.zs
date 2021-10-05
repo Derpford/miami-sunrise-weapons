@@ -17,8 +17,7 @@ class RiotCop : MiamiMonster replaces ShotgunGuy
 		ActiveSound "shotguy/active";	
 		DropItem "EMShotgun";
 		DropItem "CashBundle", 192;
-		DropItem "CreditCard", 192;
-		DropItem "ShieldBonus", 128;
+		MiamiMonster.bonus "CreditCard", 2, 2;
 		Obituary "%o was read the riot act by a bootlicker.";
 	}	
 
@@ -97,6 +96,11 @@ class RiotShieldCop : RiotCop replaces Spectre
 	Actor shield;
 
 	double shieldang;
+
+	default
+	{
+		MiamiMonster.bonus "CreditCard", 2, 3;
+	}
 
 	override void PostBeginPlay()
 	{
