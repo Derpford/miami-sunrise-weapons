@@ -10,8 +10,11 @@ class MiamiMonster : Actor
 	int numScoreBonus;
 	name scoreBonus; // what item(s) to drop on special kill (why don't we have array props yet?)
 
+	string chargesound, readysound;
+
 	Property charge : chargemax;
 	Property range : range;
+	Property sounds : chargesound, readysound;
 
 	Property bonus : scoreBonus, numScoreBonus, numShieldBonus;
 
@@ -22,6 +25,7 @@ class MiamiMonster : Actor
 		MiamiMonster.charge 35.;
 		MiamiMonster.range 512;
 		MiamiMonster.bonus "CashBundle", 1, 1;
+		MiamiMonster.sounds "weapons/plasmaf", "weapons/i_pkup";
 	}
 
 	override void PostBeginPlay()
@@ -71,6 +75,7 @@ class MiamiMonster : Actor
 	action void A_Charge(double amt = 1.)
 	{
 		invoker.charge += amt;
+		A_StartSound(invoker.chargesound,1,CHANF_NOSTOP);
 		//console.printf("Charge: "..invoker.charge);
 	}
 
@@ -100,6 +105,7 @@ class MiamiMonster : Actor
 	{
 		if(A_ChargeCheck(min))
 		{
+			invoker.A_StartSound(invoker.readysound,1);
 			invoker.SetState(invoker.ResolveState("Fire"));
 		}
 		else

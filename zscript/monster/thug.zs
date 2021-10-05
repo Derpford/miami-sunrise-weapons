@@ -14,6 +14,7 @@ class PistolThug : MiamiMonster replaces ZombieMan
 		Obituary "%o had a cap popped in %h.";
 		DropItem "EMPistol";
 		DropItem "CashBundle", 128;
+		MiamiMonster.sounds "weapons/plasmaf", "weapons/pisr";
 	}
 
 	action void A_PistolShot()

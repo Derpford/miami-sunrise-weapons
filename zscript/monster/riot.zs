@@ -9,6 +9,7 @@ class RiotCop : MiamiMonster replaces ShotgunGuy
 		Speed 6;
 		MiamiMonster.Range 420;
 		MiamiMonster.Charge 70;
+		MiamiMonster.sounds "weapons/shotgc", "weapons/shotgr";
 		SeeSound "shotguy/sight";
 		AttackSound "shotguy/attack";
 		PainSound "shotguy/pain";

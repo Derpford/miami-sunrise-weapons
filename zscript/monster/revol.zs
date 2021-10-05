@@ -13,6 +13,7 @@ class RevolverThug : PistolThug replaces DoomImp
 		DropItem "CreditCard", 128;
 		Obituary "%o found out about reloading during a battle.";
 		MiamiMonster.bonus "CreditCard", 1, 1;
+		MiamiMonster.sounds "weapons/ssgr", "weapons/pisr";
 	}
 
 	override void PostBeginPlay()
