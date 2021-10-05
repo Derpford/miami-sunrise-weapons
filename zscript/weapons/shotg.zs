@@ -10,6 +10,8 @@ class EMShotgun : EMWeapon replaces Shotgun
 		EMWeapon.ChargeDecay 1.5, 0;
 		EMWeapon.Heat 6.0, 2.5, 0.1;
 		EMWeapon.ChargeSounds "weapons/shotgc", "weapons/shotgr", "weapons/idlec";
+		EMWeapon.Price 120;
+		EMWeapon.SellMessage "Sold a riotgun.";
 	}
 
 	action void A_FireShotty()

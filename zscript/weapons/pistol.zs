@@ -10,6 +10,8 @@ class EMPistol : EMWeapon replaces Pistol
 		EMWeapon.ChargeSustain 10;
 		EMWeapon.Heat 2, .5, 0.02;
 		EMWeapon.ChargeSounds "weapons/plasmaf", "weapons/pisr", "weapons/idlec";
+		EMWeapon.Price 50;
+		EMWeapon.SellMessage "Sold a pistol.";
 	}
 
 	action void A_PistolShot()

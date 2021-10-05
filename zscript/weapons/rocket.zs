@@ -11,6 +11,8 @@ class MagLauncher : EMWeapon replaces RocketLauncher
 		EMWeapon.ChargeDecay 1.,0.1;
 		EMWeapon.Heat 40.0,.5,0.5;
 		EMWeapon.ChargeSounds "weapons/plasmaf","weapons/rocklr","weapons/idlec";
+		EMWeapon.Price 200;
+		EMWeapon.SellMessage "Sold a Magnetic Pulse Launcher.";
 	}
 
 	action void A_FireRocket()

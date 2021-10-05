@@ -10,6 +10,8 @@ class EMShredder : EMWeapon replaces SuperShotgun
 		EMWeapon.ChargeDecay 1.,2.;
 		EMWeapon.Heat 35., 35., 1.;
 		EMWeapon.ChargeSounds "weapons/ssgc", "weapons/ssgr", "weapons/idlec";
+		EMWeapon.Price 80;
+		EMWeapon.SellMessage "Pawned off a sawn-off.";
 	}
 
 	action void A_FireShredder()

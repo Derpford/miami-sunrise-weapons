@@ -1,3 +1,19 @@
+class EMSell : CashItem
+{
+	// Selling a gun grants money.
+	string newmsg;
+	default
+	{
+		Inventory.Amount 100;
+		Inventory.PickupMessage "Sold a gun for cash.";
+	}
+
+	override string PickupMessage()
+	{
+		return newmsg.." [$"..amount.."]";
+	}
+}
+
 class EMWeapon : Weapon
 {
 	// Base class for EM weapons.
@@ -26,10 +42,15 @@ class EMWeapon : Weapon
 
 	int chargestate; // charging, charged, overheat?
 
+	int SellAmount; // How much to sell this gun for.
+	string SellMessage; // What to say when we sell it.
+
 	property Charge : maxcharge, chargespeed;
 	property ChargeDecay : chargedecay, readydecay;
 	property ChargeSustain : chargesustain;
 	property Heat : maxheat, heatspeed, heatdecay;
+	property Price : SellAmount;
+	property SellMessage : SellMessage;
 
 	string readysound; // Play this when the gun's ready to fire.
 	string chargesound; // Play this when the gun is charging.
@@ -44,6 +65,8 @@ class EMWeapon : Weapon
 		EMWeapon.ChargeSustain 0;
 		EMWeapon.Heat 2.5, 0.5, 0.1;
 		EMWeapon.ChargeSounds "weapons/plasmaf","misc/i_pkup", "weapons/idlec";
+		EMWeapon.Price 100;
+		EMWeapon.SellMessage "Sold a gun for cash.";
 	}
 
 	action bool A_CheckHeat()
@@ -88,6 +111,21 @@ class EMWeapon : Weapon
 		}
 
 		A_WeaponReady(flags);
+	}
+
+	override bool TryPickup(in out Actor toucher)
+	{
+		if(toucher.CountInv(self.GetClassName())>0)
+		{
+			let it = EMSell(toucher.Spawn("EMSell",toucher.pos));
+			if(it)
+			{
+				it.amount = SellAmount;
+				it.newmsg = SellMessage;
+				GoAwayAndDie();
+			}
+		}
+		return Super.TryPickup(toucher);
 	}
 
 	override void DoEffect()

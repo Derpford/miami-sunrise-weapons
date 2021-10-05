@@ -11,6 +11,8 @@ class EMRifle : EMWeapon replaces Chaingun
 		EMWeapon.ChargeDecay 0.2, 0.1;
 		EMWeapon.Heat 8, 0.7, 0.1;
 		EMWeapon.ChargeSounds "weapons/riflec", "weapons/rifler", "weapons/idlec";
+		EMWeapon.Price 150;
+		EMWeapon.SellMessage "Sold an EM rifle.";
 	}
 
 	action void A_RifleShot()

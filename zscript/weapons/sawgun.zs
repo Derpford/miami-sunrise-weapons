@@ -16,6 +16,8 @@ class Maelstrom : EMWeapon replaces Chainsaw
 		EMWeapon.ChargeDecay 0, 0;
 		EMWeapon.Heat 35, 45, 1;
 		EMWeapon.ChargeSounds "weapons/ssgr", "weapons/pisr", "weapons/idlec";
+		EMWeapon.Price 100;
+		EMWeapon.SellMessage "Sold a revolver.";
 	}
 
 	action void A_SuperShot()

@@ -10,6 +10,8 @@ class MiamiSunset : EMWeapon replaces BFG9000
 		EMWeapon.ChargeDecay 0.3,0.05;
 		EMWeapon.Heat 50, 0.5, 0.1;
 		EMWeapon.ChargeSounds "weapons/gatlc","weapons/gatlr","weapons/idlec";
+		EMWeapon.Price 500;
+		EMWeapon.SellMessage "How did you find TWO of these!?";
 	}
 
 	action void A_FireGatling()
