@@ -29,10 +29,9 @@ class EMGrenade : Actor
 			A_StartSound("misc/i_pkup");
 			beeptime = max(5,beeptime*0.9);
 		}
-		if(time < 1 && !explode)
+		if(time < 1 && !InStateSequence(curstate,ResolveState("XDeath")))
 		{
 			SetState(ResolveState("XDeath"));
-			explode = true;
 		}
 	}
 
