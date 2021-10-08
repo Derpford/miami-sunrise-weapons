@@ -107,12 +107,19 @@ class MiamiMonster : Actor
 		}
 	}
 
-	action void A_ChargeOrFire(double min = -1)
+	action void A_ChargeOrFire(double min = -1, bool see = false)
 	{
 		if(A_ChargeCheck(min))
 		{
 			invoker.A_StartSound(invoker.readysound,1);
-			invoker.SetState(invoker.ResolveState("Fire"));
+			if(!see)
+			{
+				invoker.SetState(invoker.ResolveState("Fire"));
+			}
+			else
+			{
+				invoker.SetState(invoker.ResolveState("See"));
+			}
 		}
 		else
 		{
