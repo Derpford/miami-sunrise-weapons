@@ -157,6 +157,7 @@ class SpecOpsBarricade : SpecOps replaces BaronOfHell
 		Health 150;
 		MiamiMonster.bonus "BarrierSpawner", 2, 2;
 		Obituary "%o was tactically outmaneuvered.";
+		Translation "96:111=112:127", "185:191=202:207", "45:47=205:207";
 	}
 
 	override void A_Grenade()
