@@ -92,38 +92,40 @@ class WaveHandler : EventHandler
 	override void WorldTick()
 	{
 		double dt = 1./35.; // tick is always 1/35th second
-
-		if(WaveTimer > 0)
+		if(!Level.isFrozen())
 		{
-			WaveTimer -= dt; // WaveTimer is in seconds
-		}
-		else
-		{
-			if(Assault)
+			if(WaveTimer > 0)
 			{
-				SpawnWave();
-				WaveTimer = 10.;
-			}
-		}
-
-		if(AssaultTimer > 0)
-		{
-			AssaultTimer -= dt;
-		}
-		else
-		{
-			if(Assault)
-			{
-				Assault = false;
-				AssaultTimer = 120.;
-				AssaultCount++;
+				WaveTimer -= dt; // WaveTimer is in seconds
 			}
 			else
 			{
-				Assault = true;
-				SpawnWave();
-				WaveTimer = 10.;
-				AssaultTimer = 90.;
+				if(Assault)
+				{
+					SpawnWave();
+					WaveTimer = 10.;
+				}
+			}
+
+			if(AssaultTimer > 0)
+			{
+				AssaultTimer -= dt;
+			}
+			else
+			{
+				if(Assault)
+				{
+					Assault = false;
+					AssaultTimer = 120.;
+					AssaultCount++;
+				}
+				else
+				{
+					Assault = true;
+					SpawnWave();
+					WaveTimer = 10.;
+					AssaultTimer = 90.;
+				}
 			}
 		}
 	}

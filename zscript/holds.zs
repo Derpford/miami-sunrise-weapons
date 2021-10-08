@@ -57,43 +57,46 @@ class HoldPoint : Actor
 		int count = 0;
 		Actor plr;
 
-		while(plr = Actor(it.next()))
+		if(!isFrozen())
 		{
-			//console.printf("Counted a player!");
-			if(!CheckIfCloser(plr,CapRadius)) { continue; }
-			// We can check player details here, but for now, just increment the capture level.
-			count++;
-		}
-		if(count > 0)
-		{
-			col = "CapSparkle";
-			for(int i = 0; i < count; i++)
+			while(plr = Actor(it.next()))
 			{
-				Cap = clamp(0,Cap+CapCharge,CapMax);
+				//console.printf("Counted a player!");
+				if(!CheckIfCloser(plr,CapRadius)) { continue; }
+				// We can check player details here, but for now, just increment the capture level.
+				count++;
 			}
-		}
-		else
-		{
-			Cap = clamp(0,Cap-CapDecay,Cap);
-		}
+			if(count > 0)
+			{
+				col = "CapSparkle";
+				for(int i = 0; i < count; i++)
+				{
+					Cap = clamp(0,Cap+CapCharge,CapMax);
+				}
+			}
+			else
+			{
+				Cap = clamp(0,Cap-CapDecay,Cap);
+			}
 
-		for(int i = 0; i < 360; i+=10)
-		{
-			double ang = (i+GetAge())%360;
-			A_SpawnItemEX(col,ceil(CapRadius),zofs:16,angle:ang);
-			if(cap > 0)
+			for(int i = 0; i < 360; i+=10)
 			{
-				A_SpawnItemEX(col, ceil((Cap/CapMax) * CapRadius),zofs:16,angle:ang);
+				double ang = (i+GetAge())%360;
+				A_SpawnItemEX(col,ceil(CapRadius),zofs:16,angle:ang);
+				if(cap > 0)
+				{
+					A_SpawnItemEX(col, ceil((Cap/CapMax) * CapRadius),zofs:16,angle:ang);
+				}
 			}
-		}
 
-		if(Cap >= CapMax)
-		{
-			for(int i = 0; i < CapDrops; i++)
+			if(Cap >= CapMax)
 			{
-				A_SpawnItemEX(CapReward,xvel:frandom(-2,2),yvel:frandom(-2,2),zvel:frandom(4,8));
+				for(int i = 0; i < CapDrops; i++)
+				{
+					A_SpawnItemEX(CapReward,xvel:frandom(-2,2),yvel:frandom(-2,2),zvel:frandom(4,8));
+				}
+				Die(self,self,0,"MDK");
 			}
-			Die(self,self,0,"MDK");
 		}
 
 
@@ -273,8 +276,7 @@ class Barrier : Actor
 			Die(self,self,0,"MDK");
 		}
 		// Spawn a whole bunch of HardLight.
-		// Track it via the array.
-		SpawnLight();
+		if(!isFrozen()) { SpawnLight(); }
 	}
 
 	states
