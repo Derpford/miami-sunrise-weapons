@@ -18,6 +18,7 @@ class SpecOps : SMGThug replaces HellKnight
 		PainChance 192;
 		DropItem "CreditCard";
 		DropItem "YellowCredit", 192;
+		DropItem "EMRifle";
 		SeeSound "ZSec/sight";
 		PainSound "ZSec/pain";
 		DeathSound "ZSec/death";
@@ -162,6 +163,7 @@ class SpecOpsBarricade : SpecOps replaces BaronOfHell
 		Health 150;
 		DropItem "YellowCredit";
 		DropItem "BlueCredit", 192;
+		DropItem "EMRifle";
 		MiamiMonster.bonus "BarrierSpawner", 2, 2;
 		Obituary "%o was tactically outmaneuvered.";
 		Translation "96:111=112:127", "185:191=202:207", "45:47=205:207";

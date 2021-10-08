@@ -9,6 +9,7 @@ class SMGThug : MiamiMonster replaces ChaingunGuy
 		+MISSILEEVENMORE;
 		DropItem "CreditCard";
 		DropItem "CreditCard", 192;
+		DropItem "EMRifle";
 		SeeSound "grunt/sight";
 		AttackSound "grunt/attack";
 		PainSound "grunt/pain";
