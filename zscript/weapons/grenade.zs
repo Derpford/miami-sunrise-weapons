@@ -104,6 +104,7 @@ class GrenadeToss : Inventory
 		Inventory.Amount 1;
 		Inventory.MaxAmount 5;
 		Inventory.Icon "GRNDA7A3";
+		Inventory.PickupMessage "Got a pulse grenade.";
 	}
 
 	override bool Use(bool pickup)

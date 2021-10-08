@@ -7,6 +7,8 @@ class SMGThug : MiamiMonster replaces ChaingunGuy
 		Height 48;
 		Speed 9;
 		+MISSILEEVENMORE;
+		DropItem "CreditCard";
+		DropItem "CreditCard", 192;
 		SeeSound "grunt/sight";
 		AttackSound "grunt/attack";
 		PainSound "grunt/pain";

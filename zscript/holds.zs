@@ -292,12 +292,22 @@ class BarrierSpawner : Inventory
 	{
 		+Inventory.INVBAR;
 		Inventory.Icon "BON2A0";
+		Inventory.PickupMessage "Grabbed a portable barrier unit.";
+		Inventory.Amount 1;
+		Inventory.MaxAmount 5;
 	}
 
 	override bool Use(bool pickup)
 	{
 		owner.A_SpawnItemEX("Barrier",xofs:32);
-		return false;
+		return true;
+	}
+
+	states
+	{
+		Spawn:
+			BON2 ABCDCB 3;
+			Loop;
 	}
 }
 

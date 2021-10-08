@@ -19,8 +19,9 @@ class SpecOps : SMGThug replaces HellKnight
 		PainSound "ZSec/pain";
 		DeathSound "ZSec/death";
 		ActiveSound "ZSec/active";
-		MiamiMonster.bonus "GrenadeToss", 2, 2; // TODO: Grenade item
+		MiamiMonster.bonus "GrenadeToss", 2, 2;
 		SpecOps.maxGrenades 3;
+		Obituary "%o was terminated with excessive force.";
 	}
 
 	override bool SpecialDeath()
@@ -28,13 +29,18 @@ class SpecOps : SMGThug replaces HellKnight
 		return grenades > 0;
 	}
 
-	action void A_ThrowGrenade()
+	action void A_ThrowGrenade() // Will be overridden by Barrier Spec Ops.
 	{
 		if(invoker.grenades>0)
 		{
-			A_SpawnProjectile("EMGrenade",flags:CMF_OFFSETPITCH,pitch:-10);
+			invoker.A_Grenade();
 			invoker.grenades -= 1;
 		}
+	}
+
+	virtual void A_Grenade()
+	{
+		A_SpawnProjectile("EMGrenade",flags:CMF_OFFSETPITCH,pitch:-10);
 	}
 
 	states
@@ -139,5 +145,22 @@ class SpecOps : SMGThug replaces HellKnight
 			ZSDI BCDE 3;
 			ZSDI E -1;
 			Stop;
+	}
+}
+
+class SpecOpsBarricade : SpecOps replaces BaronOfHell
+{
+	// A spec ops guy with a barrier grenade.
+	// Slightly tougher, too.
+	default
+	{
+		Health 150;
+		MiamiMonster.bonus "BarrierSpawner", 2, 2;
+		Obituary "%o was tactically outmaneuvered.";
+	}
+
+	override void A_Grenade()
+	{
+		A_SpawnItemEX("Barrier",xvel:10,zvel:4);
 	}
 }
