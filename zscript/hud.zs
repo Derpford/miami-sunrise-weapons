@@ -4,7 +4,7 @@ class MiamiUI : BaseStatusBar
 
 	double hpval, armval, heatval, chargeval; // fill percentage
 	double armoramount, armormax; // armor details
-	int leftbarf, rightbarf, cbarf, ctextf, ltextf;
+	int leftbarf, rightbarf, cbarf, ctextf, ltextf, rtextf;
 
 	HUDFont mConFont; // Console font.
 
@@ -20,6 +20,7 @@ class MiamiUI : BaseStatusBar
 		cbarf = DI_SCREEN_CENTER_BOTTOM|DI_ITEM_CENTER_BOTTOM;
 		ctextf = DI_SCREEN_CENTER_BOTTOM | DI_ITEM_CENTER_BOTTOM | DI_TEXT_ALIGN_CENTER;
 		ltextf = DI_SCREEN_LEFT_BOTTOM | DI_ITEM_LEFT_BOTTOM | DI_TEXT_ALIGN_LEFT;
+		rtextf = DI_SCREEN_RIGHT_BOTTOM | DI_ITEM_RIGHT_BOTTOM | DI_TEXT_ALIGN_RIGHT;
 	}
 
 	void DrawHudBar(String img, Vector2 pos, double size, double xclip, double yclip, int flags)
@@ -76,6 +77,12 @@ class MiamiUI : BaseStatusBar
 
 		// Score.
 		DrawString(mConFont, FormatNumber(scr,10,format:FNF_FILLZEROS), (0,-32), ctextf, Font.CR_WHITE);
+		// Inventory icon.
+		if(plr.invsel)
+		{
+			DrawInventoryIcon(plr.invsel, (-16,-16), rightbarf);
+			DrawString(mConFont,FormatNumber(plr.invsel.Amount),(-8,-16), rtextf);
+		}
 
 		// Keys.
 		String keySprites[6] =
