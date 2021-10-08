@@ -57,11 +57,13 @@ class SpecOps : SMGThug replaces HellKnight
 			{
 				if(!fastchase)
 				{
+					bMISSILEEVENMORE = true;
 					A_Chase();	
 				}
 				else
 				{
-					A_FastChase();
+					bMISSILEEVENMORE = false;
+					A_Chase("Missile","Missile",flags:CHF_FASTCHASE);
 					if(GetAge() > chasestop)
 					{
 						fastchase = false;
