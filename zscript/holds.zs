@@ -299,7 +299,7 @@ class BarrierSpawner : Inventory
 
 	override bool Use(bool pickup)
 	{
-		owner.A_SpawnItemEX("Barrier",xofs:32);
+		owner.A_SpawnItemEX("Barrier",xvel:10,zvel:4);
 		return true;
 	}
 
