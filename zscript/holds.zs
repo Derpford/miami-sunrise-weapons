@@ -62,7 +62,7 @@ class HoldPoint : Actor
 			while(plr = Actor(it.next()))
 			{
 				//console.printf("Counted a player!");
-				if(!CheckIfCloser(plr,CapRadius)) { continue; }
+				if(plr.bNEVERTARGET || !CheckIfCloser(plr,CapRadius)) { continue; }
 				// We can check player details here, but for now, just increment the capture level.
 				count++;
 			}

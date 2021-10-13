@@ -5,11 +5,35 @@ class MiamiPlayer : DoomPlayer
 
 	default
 	{
+		Player.StartItem "CasingHands";
 		Player.StartItem "MiamiHands";
 		Player.StartItem "EMPistol";
 		Player.StartItem "ShieldPoints", 5;
 		Player.MaxHealth 100;
 		//Player.JumpZ 12;
+		+NEVERTARGET; // Removed by CasingHands.
+	}
+
+	override bool CanTouchItem(Inventory item)
+	{
+		// Can't pick stuff up if we're in Casing Mode.
+		if(bNEVERTARGET)
+		{
+			return false;
+		}
+		else
+		{
+			return super.CanTouchItem(item);
+		}
+	}
+
+	override void PostBeginPlay()
+	{
+		super.PostBeginPlay();
+		// Select the CasingHands and set notarget.
+		player.cheats |= CF_NOTARGET;
+		bNEVERTARGET = true;
+		A_SelectWeapon("CasingHands");
 	}
 
 	override void Tick()

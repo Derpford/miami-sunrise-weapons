@@ -11,7 +11,8 @@ class WaveHandler : EventHandler
 
 	double WaveTimer;
 	double AssaultTimer;
-	bool Assault;
+	bool Assault; // Are we in an assault wave?
+	bool Awake; // Is the timer ticking?
 	int AssaultCount;
 	Array<WaveSpot> spots;
 
@@ -19,6 +20,7 @@ class WaveHandler : EventHandler
 	{
 		AssaultTimer = 90.;
 		Assault = false;
+		Awake = false;
 		AssaultCount = 0;
 	}
 
@@ -92,7 +94,7 @@ class WaveHandler : EventHandler
 	override void WorldTick()
 	{
 		double dt = 1./35.; // tick is always 1/35th second
-		if(!Level.isFrozen())
+		if(!Level.isFrozen() && Awake)
 		{
 			if(WaveTimer > 0)
 			{
@@ -133,10 +135,19 @@ class WaveHandler : EventHandler
 	override void RenderOverlay(RenderEvent e)
 	{
 		let mBigFont = BigFont;
-		string timer = "NEXT WAVE : ";
-		if(Assault) { timer = "!ASSAULT! : "; }
 		string val = String.format("%.2f",AssaultTimer);
-		Screen.DrawText(mBigFont,Font.CR_YELLOW,32,64,timer..val,DTA_ScaleX,2,DTA_ScaleY,2);
+		string timer = "NEXT WAVE : "..val;
+		if(Assault) { timer = "/!\\ ASSAULT IN PROGRESS /!\\ "; }
+		if(!Awake) { timer = "CASING THE JOINT..."; }
+		Screen.DrawText(mBigFont,Font.CR_YELLOW,32,64,timer,DTA_ScaleX,2,DTA_ScaleY,2);
+	}
+
+	override void NetworkProcess(ConsoleEvent e)
+	{
+		if(e.Name == "CasingEnd" && !Awake)	
+		{
+			Awake = true;
+		}
 	}
 }
 
