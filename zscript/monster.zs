@@ -6,6 +6,8 @@ class MiamiMonster : Actor
 
 	double range; // optimal range in map units
 
+	int nextPause; // When are we gonna stop to look around, and how long?
+
 	int numShieldBonus; // how many shield bonuses to drop on special kill
 	int numScoreBonus;
 	name scoreBonus; // what item(s) to drop on special kill (why don't we have array props yet?)
@@ -28,15 +30,32 @@ class MiamiMonster : Actor
 		MiamiMonster.sounds "weapons/plasmaf", "weapons/i_pkup";
 	}
 
+	action void A_SetWanderTics()
+	{
+		int len = 4;
+		if(getAge()>invoker.nextPause)
+		{
+			len = invoker.nextPause/2;
+			invoker.nextPause = GetAge()+len+random(35,105);
+		}
+		A_SetTics(len);
+	}
+
 	override void PostBeginPlay()
 	{
 		Super.PostBeginPlay();
+		nextPause = random(70,105);
 		charge = 0;
 	}
 
 	override void Tick()
 	{
 		Super.tick();
+
+		if(InStateSequence(curstate,ResolveState("Spawn")))
+		{
+			A_Look();
+		}
 		//charge = clamp(0,charge-1,chargemax);
 
 		if(!isFrozen())

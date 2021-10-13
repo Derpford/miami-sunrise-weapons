@@ -50,7 +50,12 @@ class SpecOps : SMGThug replaces HellKnight
 	states
 	{
 		Spawn:
-			ZSEC ABCD 4 A_Look();
+			ZSEC ABCD 4 
+			{
+				A_SetWanderTics();
+				A_Wander();
+				A_Look();
+			}
 			Loop;
 
 		See:
