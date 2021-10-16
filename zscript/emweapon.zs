@@ -42,6 +42,8 @@ class EMWeapon : Weapon
 
 	int chargestate; // charging, charged, overheat?
 
+	int unloadtics; // How long have we held the reload key?
+
 	int SellAmount; // How much to sell this gun for.
 	string SellMessage; // What to say when we sell it.
 
@@ -110,7 +112,7 @@ class EMWeapon : Weapon
 			flags |= WRF_NOPRIMARY; 
 		}
 
-		A_WeaponReady(flags);
+		A_WeaponReady(flags|WRF_ALLOWRELOAD);
 	}
 
 	override bool TryPickup(in out Actor toucher)
@@ -158,6 +160,19 @@ class EMWeapon : Weapon
 			else
 			{
 				owner.A_StopSound(5);
+			}
+
+			// Holding Reload discharges the weapon after a short delay.
+			if(charge > 0 && owner.player.cmd.buttons & BT_RELOAD)
+			{
+				owner.A_StartSound("weapons/gatlr", 1, flags:CHANF_NOSTOP, pitch: 1.2);
+				unloadtics += 1;
+				if(unloadtics >= 20)
+				{
+					charge = 0;
+					unloadtics = 0;
+					owner.A_StartSound("weapons/rifler",1,pitch:1.2);
+				}
 			}
 
 		}
