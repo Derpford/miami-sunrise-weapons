@@ -6,6 +6,7 @@ class Coilgun : EMWeapon replaces PlasmaRifle
 	default
 	{
 		Weapon.SlotNumber 4;
+		Weapon.SlotPriority 0.5; // You don't draw a bolt-action rifle first in CQC.
 		Inventory.PickupMessage "Snagged a Coilgun! Pierce the heavens.";
 		EMWeapon.Charge 60, 1.5;
 		EMWeapon.ChargeDecay 1., 1.;
