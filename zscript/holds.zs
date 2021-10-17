@@ -38,7 +38,7 @@ class HoldPoint : Actor
 		for(int i = random(0,Barriers); i > 0; i--)
 		{
 			double ang = frandom(0,360);
-			Vector3 spawnpos = Vec3Angle(CapRadius,ang);
+			Vector3 spawnpos = Vec3Angle(frandom(0.5,1)*CapRadius,ang);
 			let it = Barrier(Spawn("Barrier",spawnpos));
 			if(it)
 			{ 
