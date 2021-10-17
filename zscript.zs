@@ -20,6 +20,7 @@ version "4.6"
 #include "zscript/cash.zs"
 #include "zscript/shields.zs"
 #include "zscript/holds.zs"
+#include "zscript/keyhold.zs"
 #include "zscript/hold-cash.zs"
 #include "zscript/spawnspots.zs"
 //monsters
