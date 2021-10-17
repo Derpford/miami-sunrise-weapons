@@ -53,13 +53,13 @@ class EMGrenade : Actor
 	states
 	{
 		Spawn:
-			GRND A 1;
+			THR2 AB 4;
 			Loop;
 
 		Death:
-			GRND A 1 A_StartSound("Zsec/bounce");
+			THR2 A 1 A_StartSound("Zsec/bounce");
 		DeathLoop:
-			GRND A 1;
+			THR2 AB 4;
 			Loop;
 		XDeath:
 			PLSS A 1 A_Shrapnel();
