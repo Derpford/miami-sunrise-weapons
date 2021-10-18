@@ -4,12 +4,13 @@ class EMGrenade : Actor
 
 	int time; bool explode;
 	int beeptime;
-	Property fuse : time, beeptime;
+	int maxbeeptime;
+	Property fuse : time, maxbeeptime;
 
 	default
 	{
 		BounceType "Doom";
-		Speed 20;
+		Speed 25;
 		BounceFactor 0.7;
 		+MISSILE;
 		+ALLOWBOUNCEONACTORS;
@@ -24,10 +25,12 @@ class EMGrenade : Actor
 	{
 		Super.tick();
 		time--;
-		if(time % beeptime == 0)
+		beeptime--;
+		if(beeptime < 1 && time > beeptime)
 		{
-			A_StartSound("misc/i_pkup");
-			beeptime = max(5,beeptime*0.9);
+			A_StartSound("misc/i_pkup",3);
+			maxbeeptime = max(5,maxbeeptime*0.75);
+			beeptime = maxbeeptime;
 		}
 		if(time < 1 && !InStateSequence(curstate,ResolveState("XDeath")))
 		{
@@ -87,7 +90,15 @@ class EMShrapnel : Actor
 	states
 	{
 		Spawn:
-			PUFF A 1 Bright A_SpawnItemEX("ShredTrail");
+			PUFF A 1 Bright 
+			{
+				double xofs = -vel.x;
+				double yofs = -vel.y;
+				double zofs = -vel.z;
+				//A_SpawnItemEX("ShredTrail");
+				//A_SpawnItemEX("ShredTrail",xofs:xofs,yofs:yofs,zofs:zofs,flags:SXF_ABSOLUTEPOSITION);
+				A_SpawnItemEX("ShredTrail",xofs:xofs*2,yofs:yofs*2,zofs:zofs*2,flags:SXF_ABSOLUTEPOSITION);
+			}
 			Loop;
 		Death:
 			PUFF BCDE 1;
@@ -108,7 +119,10 @@ class GrenadeToss : Inventory
 
 	override bool Use(bool pickup)
 	{
-		owner.A_SpawnItemEX("EMGrenade",xvel:20,zvel:5);
+		//A_SpawnProjectile("EMGrenade");
+		let it = owner.Spawn("EMGrenade",owner.Vec3Angle(8,owner.angle,24));
+		it.target = owner;
+		it.Vel3DFromAngle(it.speed,owner.angle,owner.pitch-20);
 		return true;
 	}
 
