@@ -102,7 +102,7 @@ class GrenadeToss : Inventory
 		+Inventory.INVBAR;
 		Inventory.Amount 1;
 		Inventory.MaxAmount 5;
-		Inventory.Icon "GRNDA7A3";
+		Inventory.Icon "THR2A0";
 		Inventory.PickupMessage "Got a pulse grenade.";
 	}
 
@@ -115,7 +115,7 @@ class GrenadeToss : Inventory
 	states
 	{
 		Spawn:
-			GRND A -1;
+			THR2 A -1;
 			Stop;
 	}
 }
