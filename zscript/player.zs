@@ -3,6 +3,8 @@ class MiamiPlayer : DoomPlayer
 	double shield;
 	int shieldTimer;
 
+	bool PutAwayWeapon;
+
 	default
 	{
 		Player.StartItem "CasingHands";
@@ -27,18 +29,37 @@ class MiamiPlayer : DoomPlayer
 		}
 	}
 
+	override void Travelled()
+	{
+		super.Travelled();
+		StartCasing();
+	}
+
 	override void PostBeginPlay()
 	{
 		super.PostBeginPlay();
+		StartCasing();
+	}
+
+	void StartCasing()
+	{
+		console.printf("Starting...");
 		// Select the CasingHands and set notarget.
 		player.cheats |= CF_NOTARGET;
 		bNEVERTARGET = true;
-		A_SelectWeapon("CasingHands");
+		//A_SelectWeapon("CasingHands");
+		PutAwayWeapon = true;
 	}
 
 	override void Tick()
 	{
 		super.Tick();
+		if(PutAwayWeapon)
+		{
+			// Workaround: Can't select weapons in PostBeginPlay for some reason.
+			A_SelectWeapon("CasingHands");
+			PutAwayWeapon = false;
+		}
 		if(shieldTimer < 1)
 		{
 			if(shield < CountInv("ShieldPoints"))
