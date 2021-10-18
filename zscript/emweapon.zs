@@ -352,7 +352,7 @@ class HeatSteam : Actor
 	{
 		+NOINTERACTION;
 		RenderStyle "Add";
-		scale 0.5;
+		scale 0.2;
 		Alpha 0.3;
 		Speed 5;
 	}
@@ -384,9 +384,38 @@ class HeatSteam : Actor
 	states
 	{
 		Spawn:
-			PUFF CDE 5 { A_SetScale(scale.x*1.1); A_FadeInOut(); }
-		FadeLoop:
-			PUFF E 1 { A_SetScale(scale.x*1.1); A_FadeInOut(); }
+			TSM1 A 0
+			{
+				int choice = random(1,4);
+				switch(choice)
+				{
+					case 1:
+						return ResolveState("Smoke1");
+					case 2:
+						return ResolveState("Smoke2");
+					case 3:
+						return ResolveState("Smoke3");
+					case 4:
+						return ResolveState("Smoke4");
+				}
+				return ResolveState("Spawn");
+			}
+			//PUFF CDE 5 { A_SetScale(scale.x*1.1); A_FadeInOut(); }
+		Smoke1:
+			TSM1 ABCDEFGHI 1 A_FadeInOut();
+			Goto SmokeLoop;
+		Smoke2:
+			TSM2 ABCDEFGHI 1 A_FadeInOut();
+			Goto SmokeLoop;
+		Smoke3:
+			TSM3 ABCDEFGHI 1 A_FadeInOut();
+			Goto SmokeLoop;
+		Smoke4:
+			TSM4 ABCDEFGHI 1 A_FadeInOut();
+			Goto SmokeLoop;
+
+		SmokeLoop:
+			#### # 1 A_FadeInOut();
 			Loop;
 	}
 }
