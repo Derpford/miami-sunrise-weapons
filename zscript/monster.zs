@@ -30,6 +30,27 @@ class MiamiMonster : Actor
 		MiamiMonster.sounds "weapons/plasmaf", "weapons/i_pkup";
 	}
 
+	action void A_MiamiFire(String missile, Vector3 pos,double ang, double pit = 0)
+	{
+		// Pitch calculation.
+		if(invoker.target)
+		{
+			double dist = invoker.Vec2To(invoker.target).Length();
+			double heightdiff = invoker.target.pos.z - invoker.pos.z;
+			invoker.pitch = atan2(heightdiff,dist);	
+			//console.printf("Shot pitch: "..invoker.pitch);
+		}
+		let it = Spawn(missile,pos);
+		if(it)
+		{
+			//console.printf("Fired successfully");
+			it.target = invoker;
+			it.angle = invoker.angle+ang;
+			it.pitch = invoker.pitch+pit;
+			it.Vel3DFromAngle(it.speed,it.angle,it.pitch);
+		}
+	}
+
 	action void A_SetWanderTics()
 	{
 		int len = 4;

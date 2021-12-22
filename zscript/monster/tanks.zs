@@ -68,7 +68,11 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 		A_StartSound("weapons/gatlf");
 		double offs = -16;
 		if(side) { offs *= -1; }
-		A_SpawnProjectile("GatlingShot",48,offs,angle:frandom(-5,5),flags:CMF_OFFSETPITCH,pitch:frandom(0,-3));
+		//A_SpawnProjectile("GatlingShot",48,offs,angle:angle+frandom(-5,5),flags:CMF_ABSOLUTEANGLE|CMF_OFFSETPITCH,pitch:frandom(0,-3));
+		Vector3 spawnpos = Vec3Angle(24,angle,48);
+		Vector2 offset = AngleToVector(angle+90,offs);
+		spawnpos = spawnpos+offset;
+		invoker.A_MiamiFire("GatlingShot",spawnpos,frandom(-5,5),frandom(0,-3));
 	}
 
 	states
