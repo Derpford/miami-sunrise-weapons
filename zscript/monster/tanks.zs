@@ -4,7 +4,7 @@ class TankBarrier : Barrier
 	default
 	{
 		+NOGRAVITY;
-		Barrier.Size 5, 4;
+		Barrier.Size 5, 3;
 	}
 }
 class PlasmaTank : MiamiMonster replaces Arachnotron
@@ -18,10 +18,11 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 	default
 	{
 		Health 200;
-		Height 56;
+		Height 64;
 		Radius 32;
 		Speed 12;
 		PainChance 64;
+		Mass 50;
 		DropItem "YellowCredit";
 		DropItem "BlueCredit";
 		DropItem "Chems", 192;
@@ -36,7 +37,7 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 	{
 		Super.PostBeginPlay();
 		shieldDist = 72;
-		shieldHeight = 4;
+		shieldHeight = 8;
 		for(int i = 0; i < 360; i += 45)
 		{
 			Vector3 spawnpos = pos + AngleToVector(i,shieldDist);
@@ -93,15 +94,47 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 			Goto See;
 
 		Fire:
+			"####" A 3
+			{
+				if(shieldHeight > 1)
+				{
+					shieldHeight = shieldHeight / 2;
+					return ResolveState(null);
+				}
+				else
+				{
+					PainChance = 255;
+					return ResolveState("RealFire");
+				}
+			}
+			Loop;
+		RealFire:
 			ZPTK A 0 A_FaceTarget(.5);
-			ZPTK D 4 A_GatlingShot(); //Left side.
-			ZPTK E 4 A_GatlingShot(true); //Right side.
-			ZPTK A 0 A_MonsterRefire(80,"See");
+			ZPTK D 8 A_GatlingShot(); //Left side.
+			ZPTK E 8 A_GatlingShot(true); //Right side.
+			ZPTK A 0 A_MonsterRefire(80,"WindDown");
 			Goto Fire;
+
+		WindDown:
+			"####" A 3
+			{
+				if(shieldHeight < 8)
+				{
+					shieldHeight = shieldHeight * 2;
+					return ResolveState(null);
+				}
+				else
+				{
+					PainChance = 64;
+					return ResolveState("See");
+				}
+			}
+			Loop;
 
 		Pain:
 			ZPTK CBA 3 VelFromAngle(6,Normalize180(angle+180));
 			ZPTK FG 4 A_Pain();
+			ZPTK A 4 { shieldHeight = 8; }
 			Goto See;
 
 		Death:
