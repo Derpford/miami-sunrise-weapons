@@ -32,6 +32,7 @@ class MiamiMonster : Actor
 
 	action void A_MiamiFire(String missile, Vector3 pos,double ang, double pit = 0)
 	{
+		/*
 		// Pitch calculation.
 		if(invoker.target)
 		{
@@ -40,6 +41,7 @@ class MiamiMonster : Actor
 			invoker.pitch = atan2(heightdiff,dist);	
 			//console.printf("Shot pitch: "..invoker.pitch);
 		}
+		*/
 		let it = Spawn(missile,pos);
 		if(it)
 		{
