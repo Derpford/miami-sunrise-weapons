@@ -4,6 +4,12 @@ class MiamiMonster : Actor
 
 	double charge, chargemax;
 
+	bool laser;
+	Property laser : laser;
+
+	double wobble; // How far the monster's aim wobbles.
+	Property wobble: wobble;
+
 	double range; // optimal range in map units
 
 	int nextPause; // When are we gonna stop to look around, and how long?
@@ -28,9 +34,25 @@ class MiamiMonster : Actor
 		MiamiMonster.range 512;
 		MiamiMonster.bonus "CashBundle", 1, 1;
 		MiamiMonster.sounds "weapons/plasmaf", "weapons/i_pkup";
+		MiamiMonster.laser true;
+		MiamiMonster.wobble 0.7;
 	}
 
-	action void A_MiamiFire(String missile, Vector3 pos,double ang, double pit = 0)
+	void SpawnLaser()
+	{
+		FLineTraceData data;
+		float dist = 512;
+		LineTrace(angle,dist,pitch,offsetz:32,data:data);
+		Vector3 spawnpos = pos;
+		spawnpos.z += 32;
+		for(int i = 0; i<data.distance; i++)
+		{
+			Vector3 newpartpos = data.HitDir*i;
+			A_SpawnParticle("FF1111",SPF_FULLBRIGHT,1,1+(2*(i/dist)),0,newpartpos.x,newpartpos.y,newpartpos.z+32,startalphaf:(dist-i)/dist);
+		}
+	}
+
+	action void A_MiamiFire(String missile, Vector3 pos = (0,0,0),double ang = 0, double pit = 0)
 	{
 		/*
 		// Pitch calculation.
@@ -42,6 +64,10 @@ class MiamiMonster : Actor
 			//console.printf("Shot pitch: "..invoker.pitch);
 		}
 		*/
+		if(pos == (0,0,0))
+		{
+			pos = invoker.Vec3Angle(8,invoker.angle,32);
+		}
 		let it = Spawn(missile,pos);
 		if(it)
 		{
@@ -75,11 +101,23 @@ class MiamiMonster : Actor
 	{
 		Super.tick();
 
+		// Aim wobble.
+
+		angle += frandom(-wobble,wobble);
+		double pitchfac = pitch/90.; // should produce a value between -1 and 1
+		double wobblefac = -pitchfac * wobble; // up to 2x wobble in the right direction
+		pitch += frandom(-wobble+wobblefac,wobble+wobblefac);
+
 		if(InStateSequence(curstate,ResolveState("Spawn")))
 		{
 			A_Look();
 		}
 		//charge = clamp(0,charge-1,chargemax);
+
+		if(!self.bCORPSE && target)
+		{
+			SpawnLaser();
+		}
 
 		if(!isFrozen())
 		{
