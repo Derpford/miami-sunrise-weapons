@@ -27,7 +27,7 @@ class SMGThug : MiamiMonster replaces ChaingunGuy
 	action void A_RifleShot()
 	{
 		invoker.spread = clamp(0,invoker.spread+0.7,8);
-		A_SpawnProjectile("EMRifleShot",angle:frandom(-invoker.spread,invoker.spread),flags:CMF_OFFSETPITCH,pitch:frandom(-1,-invoker.spread));
+		A_MiamiFire("EMRifleShot",(0,0,0),frandom(-invoker.spread, invoker.spread),frandom(0,-invoker.spread));
 		A_StartSound("weapons/riflef",1);
 	}
 
@@ -86,18 +86,20 @@ class SMGThug : MiamiMonster replaces ChaingunGuy
 			ZSMG E 1 
 			{
 				A_Charge(2);
+				A_FaceTarget(15,15);
 			}
 			ZSMG E 0 A_ChargeOrFire();
 			Loop;
 
 		Fire:
-			ZSMG E 4 { A_FaceTarget(); invoker.burst = random(3,5); }
+			ZSMG E 4 { A_FaceTarget(10,10); invoker.burst = random(3,5); }
 		FireLoop:
 			ZSMG F 2 A_RifleShot();
 			ZSMG E 3;
 			ZSMG E 6
 			{
 				invoker.burst -= 1;
+				A_FaceTarget(2,2);
 				if(!A_ChargeCheck(0) || invoker.burst < 1 || invoker.spread >= 8)
 				{
 					return ResolveState(null);

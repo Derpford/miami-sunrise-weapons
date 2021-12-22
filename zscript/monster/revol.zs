@@ -24,7 +24,8 @@ class RevolverThug : PistolThug replaces DoomImp
 
 	action void A_RevoShot()
 	{
-		A_SpawnProjectile("EMShot",32,0,frandom(-16,16));
+		//A_SpawnProjectile("EMShot",32,0,frandom(-16,16));
+		A_MiamiFire("EMShot",ang:frandom(-16,16));
 		A_Discharge(15.);
 		A_StartSound("weapons/ssgf",1);
 	}
@@ -46,7 +47,8 @@ class RevolverThug : PistolThug replaces DoomImp
 			MGPS E 1
 			{
 				A_Charge(1);	
-				A_StartSound("weapons/ssgr",1,CHANF_NOSTOP);
+				A_FaceTarget(20,10);
+				//A_StartSound("weapons/ssgr",1,CHANF_NOSTOP);
 			}
 			MGPS E 0
 			{
@@ -64,7 +66,7 @@ class RevolverThug : PistolThug replaces DoomImp
 			Loop;
 
 		Fire:
-			MGPS E 4 A_FaceTarget();
+			MGPS E 4 A_FaceTarget(10,10);
 			MGPS F 3 A_RevoShot();
 			MGPS E 3 A_SetTics(random(3,12));
 			MGPS D 2

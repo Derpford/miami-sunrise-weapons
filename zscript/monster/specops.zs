@@ -110,18 +110,19 @@ class SpecOps : SMGThug replaces HellKnight
 			Loop;
 
 		Charge:
-			ZSEC E 1 A_Charge(2);
+			ZSEC E 1 { A_Charge(2); A_FaceTarget(20,20); }
 			ZSEC E 1 A_ChargeOrFire(see: true);
 			Loop;
 
 		Fire:
-			ZSEC E 4 { A_FaceTarget(); invoker.burst = random(2,8); }
+			ZSEC E 4 { A_FaceTarget(15,15); invoker.burst = random(2,8); }
 		FireLoop:
 			ZSEC F 2 A_RifleShot();
 			ZSEC E 3;
 			ZSEC E 6
 			{
 				invoker.burst -= 1;
+				A_FaceTarget(3,3);
 				if(!A_ChargeCheck(0) || invoker.burst < 1 || invoker.spread >= 8)
 				{
 					return ResolveState(null);

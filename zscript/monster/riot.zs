@@ -25,9 +25,10 @@ class RiotCop : MiamiMonster replaces ShotgunGuy
 	{
 		A_Discharge(70);
 		A_StartSound("weapons/shotgf",1);
+		Vector3 spawnpos = Vec3Angle(8,angle,32);
 		for(int i = 0; i < 10; i++)
 		{
-			A_SpawnProjectile("EMPellet",angle:frandom(-4,4),flags:CMF_OFFSETPITCH,pitch:frandom(1,-3));
+			A_MiamiFire("EMPellet",spawnpos,frandom(-4,4),frandom(1,-3));
 		}
 	}
 
@@ -59,13 +60,14 @@ class RiotCop : MiamiMonster replaces ShotgunGuy
 			ASGZ E 1
 			{
 				A_Charge();
-				A_StartSound("weapons/shotgc",1,CHANF_NOSTOP);
+				A_FaceTarget(15,30);
+				//A_StartSound("weapons/shotgc",1,CHANF_NOSTOP);
 			}
 			ASGZ E 1 A_ChargeOrFire();
 			Goto See;
 
 		Fire:
-			ASGZ E 2 A_FaceTarget();
+			ASGZ E 2 A_FaceTarget(5,10);
 			ASGZ E 4 A_Pain();
 			ASGZ F 3 A_RiotShot();
 			ASGZ E 2;
@@ -141,14 +143,15 @@ class RiotShieldCop : RiotCop replaces Spectre
 			ASGZ E 1
 			{
 				A_Charge();
+				A_FaceTarget(10,30);
 				invoker.shieldang = 60;
-				A_StartSound("weapons/shotgc",1,CHANF_NOSTOP);
+				//A_StartSound("weapons/shotgc",1,CHANF_NOSTOP);
 			}
 			ASGZ E 1 A_ChargeOrFire();
 			Goto See;
 
 		Fire:
-			ASGZ E 2 { A_FaceTarget(); invoker.shieldang = 90; }
+			ASGZ E 2 { A_FaceTarget(5,10); invoker.shieldang = 90; }
 			ASGZ E 4 A_Pain();
 			ASGZ F 3 A_RiotShot();
 			ASGZ E 2;

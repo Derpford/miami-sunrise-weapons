@@ -19,7 +19,7 @@ class PistolThug : MiamiMonster replaces ZombieMan
 
 	action void A_PistolShot()
 	{
-		A_SpawnProjectile("EMShot",32,0,frandom(-16,16));
+		A_MiamiFire("EMShot",(0,0,0),frandom(-16,16));
 		A_Discharge(10.);
 		A_StartSound("weapons/pisf",1);
 	}
@@ -52,6 +52,7 @@ class PistolThug : MiamiMonster replaces ZombieMan
 			MGPS E 1
 			{
 				A_Charge(3);	
+				A_FaceTarget(10,5);
 				A_StartSound("weapons/plasmaf",1,CHANF_NOSTOP);
 			}
 			MGPS E 0
@@ -70,8 +71,9 @@ class PistolThug : MiamiMonster replaces ZombieMan
 			Loop;
 
 		Fire:
-			MGPS E 4 A_FaceTarget();
-			MGPS F 3 A_PistolShot();
+			MGPS E 4 A_FaceTarget(15,15);
+		RealFire:
+			MGPS F 3 { A_FaceTarget(5,5); A_PistolShot(); }
 			MGPS E 3 A_SetTics(random(3,12));
 			MGPS D 2
 			{

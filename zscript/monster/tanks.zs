@@ -28,6 +28,7 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 		DropItem "Chems", 192;
 		MiamiMonster.charge 50;
 		MiamiMonster.bonus "Chems",3,4;
+		MiamiMonster.laser false;
 		// Doesn't have a range setting. This machine does not give a shit.
 		MiamiMonster.sounds "weapons/gatlc","weapons/gatlr";
 		Obituary "%o got steamrolled by a gatling tank.";
@@ -102,6 +103,7 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 			{
 				if(shieldHeight > 1)
 				{
+					A_FaceTarget(30,100);
 					shieldHeight = shieldHeight / 2;
 					return ResolveState(null);
 				}
@@ -113,10 +115,21 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 			}
 			Loop;
 		RealFire:
-			ZPTK A 0 A_FaceTarget(.5);
+			ZPTK A 0 A_FaceTarget(15,10);
 			ZPTK D 8 A_GatlingShot(); //Left side.
 			ZPTK E 8 A_GatlingShot(true); //Right side.
-			ZPTK A 0 A_MonsterRefire(80,"WindDown");
+			//ZPTK A 0 A_MonsterRefire(80,"WindDown");
+			ZPTK A 0
+			{
+				if(!CheckLOF() && frandom(0,1) < .3)
+				{
+					return ResolveState("WindDown");
+				}
+				else
+				{
+					return ResolveState(null);
+				}
+			}
 			Goto Fire;
 
 		WindDown:

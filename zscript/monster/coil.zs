@@ -10,6 +10,8 @@ class CoilSniper : MiamiMonster replaces Revenant
 		MiamiMonster.charge 60;
 		MiamiMonster.range 800;
 		MiamiMonster.bonus "Chems", 1, 2;
+		MiamiMonster.sounds "weapons/coilc", "misc/i_pkup";
+		MiamiMonster.wobble 0.4;
 		SeeSound "ZSec/sight";
 		PainSound "ZSec/pain";
 		DeathSound "ZSec/death";
@@ -21,7 +23,7 @@ class CoilSniper : MiamiMonster replaces Revenant
 	{
 		A_Discharge(60);
 		A_StartSound("weapons/coilf",1);
-		A_SpawnProjectile("EMCoilBolt");
+		A_MiamiFire("EMCoilBolt");
 		// No charge bonus. These guys suck at this.
 	}
 
@@ -46,14 +48,14 @@ class CoilSniper : MiamiMonster replaces Revenant
 		Charge:
 			ZHRT E 1 
 			{
-				A_FaceTarget(5);
+				A_FaceTarget(45,45);
 				A_Charge(1.5);
 			}
 			ZHRT E 1 A_ChargeOrFire();
 			Loop;
 
 		Fire:
-			ZHRT E 2;
+			ZHRT E 2 A_FaceTarget(5,5);
 			ZHRT F 3 A_FireCoil();
 			ZHRT E 2;
 			Goto See;

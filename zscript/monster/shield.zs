@@ -57,6 +57,7 @@ class BarrierThug : PistolThug replaces Demon
 			MGPS E 1
 			{
 				A_Charge(3);	
+				A_FaceTarget(5,15);
 				invoker.shieldang = 45;
 				A_StartSound("weapons/plasmaf",1,CHANF_NOSTOP);
 			}
@@ -77,7 +78,7 @@ class BarrierThug : PistolThug replaces Demon
 			Loop;
 
 		Fire:
-			MGPS E 4 { A_FaceTarget(); invoker.shieldang = 90; }
+			MGPS E 4 { A_FaceTarget(10,10); invoker.shieldang = 90; }
 			MGPS F 3 A_PistolShot();
 			MGPS E 3 A_SetTics(random(3,12));
 			MGPS D 2
