@@ -16,6 +16,10 @@ weapons/riflec "sounds/Doubpick.wav"
 weapons/rifler "sounds/Dartpick.wav"
 weapons/riflef "sounds/Turbofire.wav"
 
+weapons/coilc "sounds/Doubpick.wav"
+$pitchset weapons/coilc 0.9
+$attenuation weapons/coilc 0.5
+
 weapons/rocklf "sounds/Triplefire.wav"
 $pitchset weapons/rocklf 0.7
 weapons/rocklr "sounds/Doubpick.wav"

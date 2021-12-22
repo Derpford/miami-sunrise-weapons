@@ -14,6 +14,7 @@ class Coilgun : EMWeapon replaces PlasmaRifle
 		EMWeapon.Heat 8.0, 5.0, 0.1;
 		EMWeapon.Price 250;
 		EMWeapon.SellMessage "Sold a coilgun.";
+		EMWeapon.ChargeSounds "weapons/coilc","misc/i_pkup", "weapons/idlec";
 	}
 
 	action void A_FireSniper()
