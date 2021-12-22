@@ -162,3 +162,64 @@ class PlasmaTank : MiamiMonster replaces Arachnotron
 			Stop;
 	}
 }
+
+class MissileTank : PlasmaTank replaces Fatso
+{
+	// The above tank, but it fires MagLauncher rounds.
+
+	action void A_EMagShot(bool side = false)
+	{
+		A_Discharge(50);
+		A_StartSound("weapons/rocklf");
+		double offs = -16;
+		if(side) { offs *= -1; }
+		//A_SpawnProjectile("GatlingShot",48,offs,angle:angle+frandom(-5,5),flags:CMF_ABSOLUTEANGLE|CMF_OFFSETPITCH,pitch:frandom(0,-3));
+		Vector3 spawnpos = Vec3Angle(24,angle,48);
+		Vector2 offset = AngleToVector(angle+90,offs);
+		spawnpos = spawnpos+offset;
+		invoker.A_MiamiFire("EMRocket",spawnpos);
+	}
+
+	states
+	{
+		Spawn:
+			ZMTK A 1 A_Look(); // Tanks idle instead of wandering.
+			Loop;
+
+		See:
+			ZMTK ABC 3 A_Chase();
+			Loop;
+
+		Missile:
+			ZMTK A 2 A_ChargeOrFire();
+			Goto See;
+
+		Charge:
+			ZMTK A 1
+			{
+				A_Charge();
+				A_FaceTarget(20,10);
+			}
+			ZMTK A 0 A_ChargeOrFire();
+			Goto See;
+
+		RealFire:
+			ZMTK A 0 A_FaceTarget(15,10);
+			ZMTK D 8 A_EMagShot(); //Left side.
+			ZMTK E 8 A_EMagShot(true); //Right side.
+			Goto WindDown;
+
+		Pain:
+			ZMTK CBA 3 VelFromAngle(6,Normalize180(angle+180));
+			ZMTK FG 4 A_Pain();
+			ZMTK A 4 { shieldHeight = 8; }
+			Goto See;
+
+		Death:
+			ZMTK FG 3;
+			ZMTK H 4; //Left turret go boom
+			ZMTK I 4; //Right turret go boom
+			ZMTK JKLMNO random(3,4); // Tank falls apart.
+			Stop;
+	}
+}

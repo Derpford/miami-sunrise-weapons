@@ -114,7 +114,7 @@ class MiamiMonster : Actor
 		}
 		//charge = clamp(0,charge-1,chargemax);
 
-		if(!self.bCORPSE && target)
+		if(laser && !self.bCORPSE && target)
 		{
 			SpawnLaser();
 		}
